@@ -10,5 +10,9 @@ namespace BugTracker.Models
         public int Id { get; set; }
         public DateTime TimeStamp { get; set; }
         public string Text { get; set; }
+
+        // Foreign Key for Bug
+        public int BugId { get; set; }
+        public Bug Bug { get; set; }
     }
 }

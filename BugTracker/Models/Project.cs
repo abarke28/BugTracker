@@ -9,6 +9,6 @@ namespace BugTracker.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public IList<Bug> Bugs { get; set; }
+        public ICollection<Bug> Bugs { get; set; }
     }
 }

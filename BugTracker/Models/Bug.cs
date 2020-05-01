@@ -13,6 +13,10 @@ namespace BugTracker.Models
         public BugStatus Status { get; set; }
         public string ResolutionDescription { get; set; }
         public string ResolutionCommit { get; set; }
-        public IList<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
+        // Foreign Key for Project
+        public int ProjectId { get; set; }
+        public Project Project { get; set; }
     }
 }
