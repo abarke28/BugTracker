@@ -43,8 +43,6 @@ namespace BugTracker.Controllers.Api
         }
 
         // PUT: api/Projects/{id}
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProject(int id, Project project)
         {
@@ -75,8 +73,6 @@ namespace BugTracker.Controllers.Api
         }
 
         // POST: api/Projects
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
