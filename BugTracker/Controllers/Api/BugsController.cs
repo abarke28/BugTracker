@@ -28,7 +28,7 @@ namespace BugTracker.Controllers.Api
             return await _context.Bug.ToListAsync();
         }
 
-        // GET: api/Bugs/5
+        // GET: api/Bugs/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Bug>> GetBug(int id)
         {
@@ -42,9 +42,7 @@ namespace BugTracker.Controllers.Api
             return bug;
         }
 
-        // PUT: api/Bugs/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // PUT: api/Bugs/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBug(int id, Bug bug)
         {
@@ -75,8 +73,6 @@ namespace BugTracker.Controllers.Api
         }
 
         // POST: api/Bugs
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Bug>> PostBug(Bug bug)
         {
@@ -86,7 +82,7 @@ namespace BugTracker.Controllers.Api
             return CreatedAtAction("GetBug", new { id = bug.Id }, bug);
         }
 
-        // DELETE: api/Bugs/5
+        // DELETE: api/Bugs/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<Bug>> DeleteBug(int id)
         {
