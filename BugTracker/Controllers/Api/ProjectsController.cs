@@ -28,7 +28,7 @@ namespace BugTracker.Controllers.Api
             return await _context.Projects.ToListAsync();
         }
 
-        // GET: api/Projects/5
+        // GET: api/Projects/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
@@ -42,7 +42,7 @@ namespace BugTracker.Controllers.Api
             return project;
         }
 
-        // PUT: api/Projects/5
+        // PUT: api/Projects/{id}
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -86,7 +86,7 @@ namespace BugTracker.Controllers.Api
             return CreatedAtAction("GetProject", new { id = project.Id }, project);
         }
 
-        // DELETE: api/Projects/5
+        // DELETE: api/Projects/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(int id)
         {
