@@ -18,10 +18,10 @@ namespace BugTracker.Controllers.Api
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public BugsController(ApplicationDbContext context)
+        public BugsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
-            _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+            _mapper = mapper;
         }
 
         // GET: api/Bugs
