@@ -15,6 +15,7 @@ namespace BugTracker.Controllers.Api
     public class ProjectsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+
         public static string Endpoint { get; set; } = @"https://localhost:44313/api/projects";
 
         public ProjectsController(ApplicationDbContext context)

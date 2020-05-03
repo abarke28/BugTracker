@@ -19,6 +19,8 @@ namespace BugTracker.Controllers.Api
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
+        public static string Endpoint { get; set; } = @"https://localhost:44313/api/bugs";
+
         public BugsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
