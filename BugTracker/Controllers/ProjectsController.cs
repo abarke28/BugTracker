@@ -25,5 +25,10 @@ namespace BugTracker.Controllers
 
             return View(vm);
         }
+
+        public IActionResult Detail(Project project)
+        {
+            return View(project);
+        }
     }
 }

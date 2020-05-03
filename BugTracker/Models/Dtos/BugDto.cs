@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BugTracker.Models
+namespace BugTracker.Models.Dtos
 {
-    public class BugVm
+    public class BugDto
     {
         public string Title { get; set; }
         public string Description { get; set; }

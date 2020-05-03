@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BugTracker.Data;
 using BugTracker.Models;
 using AutoMapper;
+using BugTracker.Models.Dtos;
 
 namespace BugTracker.Controllers.Api
 {
@@ -77,16 +78,16 @@ namespace BugTracker.Controllers.Api
 
         // POST: api/Bugs
         [HttpPost]
-        public async Task<ActionResult<Bug>> PostBug(BugVm bugVm)
+        public async Task<ActionResult<Bug>> PostBug(BugDto bugDto)
         {
-            var bug = _mapper.Map<Bug>(bugVm);
+            var bug = _mapper.Map<Bug>(bugDto);
             bug.DateAssigned = DateTime.Today;
             bug.Status = BugStatus.Open;
 
             _context.Bug.Add(bug);
             await _context.SaveChangesAsync();
 
-            return Created(Request.Path.ToString() + "/" + bug.Id, bugVm);
+            return Created(Request.Path.ToString() + "/" + bug.Id, bugDto);
         }
 
         // DELETE: api/Bugs/{id}
