@@ -20,6 +20,7 @@ namespace BugTracker.Controllers
 
         public IActionResult Index()
         {
+            _logger.Log(LogLevel.Information, "Home: Index entered");
             return View();
         }
 
