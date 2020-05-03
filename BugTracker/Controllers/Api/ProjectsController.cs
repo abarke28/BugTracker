@@ -25,7 +25,7 @@ namespace BugTracker.Controllers.Api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Projects.Include(p=>p.Bugs).ToListAsync();
         }
 
         // GET: api/Projects/{id}
