@@ -20,10 +20,6 @@ namespace BugTracker.Models
         public string ResolutionDescription { get; set; }
         public string ResolutionCommit { get; set; }
         public ICollection<Comment> Comments { get; set; }
-
-        // Foreign Key for Project
-        [Required]
         public int ProjectId { get; set; }
-        public Project Project { get; set; }
     }
 }
