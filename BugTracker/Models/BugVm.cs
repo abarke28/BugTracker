@@ -9,8 +9,6 @@ namespace BugTracker.Models
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string ResolutionCommit { get; set; }
-        public ICollection<Comment> Comments { get; set; }
         public int ProjectId { get; set; }
     }
 }

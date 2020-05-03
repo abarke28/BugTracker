@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BugTracker.Data;
 using BugTracker.Models;
+using AutoMapper;
 
 namespace BugTracker.Controllers.Api
 {
@@ -15,10 +16,12 @@ namespace BugTracker.Controllers.Api
     public class BugsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
         public BugsController(ApplicationDbContext context)
         {
             _context = context;
+            _mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
         }
 
         // GET: api/Bugs
@@ -74,12 +77,16 @@ namespace BugTracker.Controllers.Api
 
         // POST: api/Bugs
         [HttpPost]
-        public async Task<ActionResult<Bug>> PostBug(Bug bug)
+        public async Task<ActionResult<Bug>> PostBug(BugVm bugVm)
         {
+            var bug = _mapper.Map<Bug>(bugVm);
+            bug.DateAssigned = DateTime.Today;
+            bug.Status = BugStatus.Open;
+
             _context.Bug.Add(bug);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBug", new { id = bug.Id }, bug);
+            return Created(Request.Path.ToString() + "/" + bug.Id, bugVm);
         }
 
         // DELETE: api/Bugs/{id}
