@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BugTracker.Data;
 using BugTracker.Models;
+using AutoMapper;
+using BugTracker.Models.Dtos;
 
 namespace BugTracker.Controllers.Api
 {
@@ -15,10 +17,12 @@ namespace BugTracker.Controllers.Api
     public class CommentsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CommentsController(ApplicationDbContext context)
+        public CommentsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Comments
@@ -28,7 +32,7 @@ namespace BugTracker.Controllers.Api
             return await _context.Comment.ToListAsync();
         }
 
-        // GET: api/Comments/5
+        // GET: api/Comments/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
@@ -42,9 +46,7 @@ namespace BugTracker.Controllers.Api
             return comment;
         }
 
-        // PUT: api/Comments/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        // PUT: api/Comments/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(int id, Comment comment)
         {
@@ -75,18 +77,21 @@ namespace BugTracker.Controllers.Api
         }
 
         // POST: api/Comments
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<Comment>> PostComment(CommentDto commentDto)
         {
+            if (commentDto.BugId == 0) return BadRequest();
+
+            var comment = _mapper.Map<Comment>(commentDto);
+            comment.TimeStamp = DateTime.Now;
+
             _context.Comment.Add(comment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
-        // DELETE: api/Comments/5
+        // DELETE: api/Comments/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<Comment>> DeleteComment(int id)
         {
