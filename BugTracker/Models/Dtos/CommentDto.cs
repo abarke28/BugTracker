@@ -9,5 +9,6 @@ namespace BugTracker.Models.Dtos
     {
         public int BugId { get; set; }
         public string Text { get; set; }
+        public string SubmittedBy { get; set; }
     }
 }

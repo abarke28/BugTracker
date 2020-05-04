@@ -20,5 +20,14 @@
 </div>
 
 <div class="container">
-    
+    @foreach (var comment in Model.Bug.Comments)
+    {
+        <div class="card border-primary mb-3">
+            <div class="card-header">@comment.TimeStamp</div>
+            <div class="card-body">
+                <h2 class="card-title">@comment.SubmittedBy</h2>
+                <p class="card-text">@comment.Text</p>
+            </div>
+        </div>
+    }
 </div>
