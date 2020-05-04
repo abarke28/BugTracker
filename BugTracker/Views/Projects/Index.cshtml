@@ -38,10 +38,10 @@
                 @item.Title
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id"> @item.Bugs.Where(bug=>((bug.Status&BugStatus.Open)==BugStatus.Open)).Count()</a>
+                <a asp-action="Detail" asp-route-id="@item.Id"> @item.Bugs.Where(bug=>((bug.Status&BugStatus.Open)==BugStatus.Open)).Count()</a>
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">@item.Bugs.Count</a>
+                <a asp-action="Detail" asp-route-id="@item.Id">@item.Bugs.Count</a>
             </td>
             <td>
                 <a>Edit</a>

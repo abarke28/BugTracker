@@ -1,0 +1,54 @@
+﻿@model Project
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var TotalBugs = Model.Bugs.Count;
+    var OpenBugs = Model.Bugs.Where(b => ((b.Status & BugStatus.Open) == BugStatus.Open)).Count();
+    var ClosedBugs = Model.Bugs.Where(b => ((b.Status & BugStatus.Closed) == BugStatus.Closed)).Count();
+    var UnassignedBugs = OpenBugs - Model.Bugs.Where(b => ((b.Status & BugStatus.Assigned) == BugStatus.Assigned)).Count();
+}
+
+<h2>@Model.Title</h2>
+
+<div>
+    <h4>
+        Total Bugs: @TotalBugs Open Bugs: @OpenBugs Closed Bugs: @ClosedBugs Unassigned Bugs: @UnassignedBugs
+    </h4>
+</div>
+
+@foreach(var bug in Model.Bugs)
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Status</td>
+                <td>DateSubmitted</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @bug.Id
+                </td>
+                <td>
+                    @bug.Title
+                </td>
+                    @bug.Description
+                <td>
+                </td>
+                    @bug.Status
+                <td>
+                    @bug.DateSubmitted
+                </td>
+                <td>
+                    <a asp-controller="Bugs" asp-action="Detail">Details</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+

@@ -13,6 +13,7 @@ namespace BugTracker.Controllers
     public class ProjectsController : Controller
     {
         // GET /projects
+        [HttpGet("projects")]
         public async Task<IActionResult> Index()
         {
             var vm = new List<Project>();
@@ -26,9 +27,15 @@ namespace BugTracker.Controllers
             return View(vm);
         }
 
-        public IActionResult Detail(Project project)
+        public async Task<IActionResult> Detail(int id)
         {
-            return View(project);
+            var vm = new Project();
+            using (var client = new HttpClient())
+            {
+                string apiResponse = await client.GetAsync(Api.ProjectsController.Endpoint + @"/" + id).Result.Content.ReadAsStringAsync();
+                vm = JsonConvert.DeserializeObject<Project>(apiResponse);
+            }
+            return View(vm);
         }
     }
 }
