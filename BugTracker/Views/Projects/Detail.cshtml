@@ -8,28 +8,30 @@
     var UnassignedBugs = OpenBugs - Model.Bugs.Where(b => ((b.Status & BugStatus.Assigned) == BugStatus.Assigned)).Count();
 }
 
-<h2>@Model.Title</h2>
+<h3>@Model.Title</h3>
 
 <div>
-    <h4>
-        Total Bugs: @TotalBugs Open Bugs: @OpenBugs Closed Bugs: @ClosedBugs Unassigned Bugs: @UnassignedBugs
-    </h4>
+    <span class="badge badge-info">Total Bugs: @TotalBugs</span>
+    <span class="badge badge-info">Open Bugs: @OpenBugs</span>
+    <span class="badge badge-info">Closed Bugs: @ClosedBugs</span>
+    <span class="badge badge-info">Unassigned Bugs: @UnassignedBugs</span>
 </div>
 
-@foreach(var bug in Model.Bugs)
-{
-    <table>
-        <thead>
-            <tr>
-                <td>Id</td>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Status</td>
-                <td>DateSubmitted</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>DateSubmitted</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bug in Model.Bugs)
+        {
             <tr>
                 <td>
                     @bug.Id
@@ -37,10 +39,12 @@
                 <td>
                     @bug.Title
                 </td>
-                    @bug.Description
                 <td>
+                    @bug.Description
                 </td>
+                <td>
                     @bug.Status
+                </td>
                 <td>
                     @bug.DateSubmitted
                 </td>
@@ -48,7 +52,7 @@
                     <a asp-controller="Bugs" asp-action="Detail">Details</a>
                 </td>
             </tr>
-        </tbody>
-    </table>
-}
+        }
 
+    </tbody>
+</table>
