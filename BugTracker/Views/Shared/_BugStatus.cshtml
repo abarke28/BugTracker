@@ -1,0 +1,11 @@
+﻿@model BugStatus
+@if ((Model & BugStatus.Open) == BugStatus.Open)
+{<span class="badge badge-danger">Open</span>}
+@if ((Model & BugStatus.Assigned) == BugStatus.Assigned)
+{<span class="badge badge-info">Assigned</span>}
+@if ((Model & BugStatus.Resolved) == BugStatus.Resolved)
+{<span class="badge badge-success">Resolved</span>}
+@if ((Model & BugStatus.Closed) == BugStatus.Closed)
+{<span class="badge badge-primary">Closed</span>}
+@if ((Model & BugStatus.Reopened) == BugStatus.Reopened)
+{<span class="badge badge-warning">Reopened</span>}
