@@ -16,13 +16,7 @@
     <p>@Model.Bug.Description</p>
     <p>Submitted: @Model.Bug.DateSubmitted</p>
     <p>Id#: @Model.Bug.Id</p>
-    
-</div>
-
-<div class="container">
-    <span class="badge badge-info">@Model.Bug.DateSubmitted</span>
-    <span class="badge badge-info">@Model.Bug.ProjectId</span>
-    <span class="badge badge-info">@Model.Bug.Status</span>
+    @await Html.PartialAsync("_BugStatus", Model.Bug.Status)
 </div>
 
 <div class="container">
