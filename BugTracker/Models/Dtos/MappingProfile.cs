@@ -12,6 +12,9 @@ namespace BugTracker.Models.Dtos
         {
             CreateMap<Bug, BugDto>();
             CreateMap<BugDto, Bug>();
+
+            CreateMap<Comment, CommentDto>();
+            CreateMap<CommentDto, Comment>();
         }
     }
 }
