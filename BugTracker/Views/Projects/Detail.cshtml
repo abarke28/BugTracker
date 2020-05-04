@@ -9,8 +9,8 @@
 }
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Projects</a></li>
+    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-controller="Projects" asp-action="Index">Projects</a></li>
     <li class="breadcrumb-item active">@Model.Title</li> 
 </ol>
 
@@ -22,7 +22,6 @@
     <span class="badge badge-info">Closed Bugs: @ClosedBugs</span>
     <span class="badge badge-info">Unassigned Bugs: @UnassignedBugs</span>
 </div>
-
 
 <table class="table">
     <thead>
@@ -55,10 +54,18 @@
                     @bug.DateSubmitted.Date.ToShortDateString()
                 </td>
                 <td>
-                    <a asp-controller="Bugs" asp-action="Detail">Details</a>
+                    <a asp-controller="Bugs" asp-action="Detail" asp-route-projectId="@Model.Id" asp-route-id="@bug.Id" >Details</a>
                 </td>
             </tr>
         }
 
     </tbody>
 </table>
+
+@*@section Scripts{ 
+<script>
+    $(Document).ready(function () {
+
+    });
+</script>
+}*@ 

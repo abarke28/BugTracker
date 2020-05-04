@@ -1,0 +1,20 @@
+﻿@model Bug
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@Model.Title</h3>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-controller="Projects" asp-action="Index">Projects</a></li>
+    <li class="breadcrumb-item active">@Model.Title</li>
+</ol>
+
+<div class="container">
+    <span class="badge badge-info">@Model.DateSubmitted</span>
+    <span class="badge badge-info">@Model.ProjectId</span>
+    <span class="badge badge-info">@Model.Status</span>
+</div>
+
