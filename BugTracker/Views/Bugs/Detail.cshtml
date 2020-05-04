@@ -4,14 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>@Model.Bug.Title</h3>
-
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
     <li class="breadcrumb-item"><a asp-controller="Projects" asp-action="Index">Projects</a></li>
     <li class="breadcrumb-item"><a asp-controller="Projects" asp-action="Detail" asp-route-id="@Model.ProjectId">@Model.ProjectName</a></li>
     <li class="breadcrumb-item active">@Model.Bug.Title</li>
 </ol>
+
+<h3>@Model.Bug.Title</h3>
 
 <div class="container">
     <span class="badge badge-info">@Model.Bug.DateSubmitted</span>
@@ -22,10 +22,10 @@
 <div class="container">
     @foreach (var comment in Model.Bug.Comments)
     {
-        <div class="card border-primary mb-3">
+        <div class="card border-primary mb-3" style="max-width: 40rem;">
             <div class="card-header">@comment.TimeStamp</div>
             <div class="card-body">
-                <h2 class="card-title">@comment.SubmittedBy</h2>
+                <b class="card-title">@comment.SubmittedBy</b>
                 <p class="card-text">@comment.Text</p>
             </div>
         </div>
