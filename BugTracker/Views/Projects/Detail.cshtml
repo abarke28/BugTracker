@@ -8,6 +8,12 @@
     var UnassignedBugs = OpenBugs - Model.Bugs.Where(b => ((b.Status & BugStatus.Assigned) == BugStatus.Assigned)).Count();
 }
 
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Projects</a></li>
+    <li class="breadcrumb-item active">@Model.Title</li> 
+</ol>
+
 <h3>@Model.Title</h3>
 
 <div>
