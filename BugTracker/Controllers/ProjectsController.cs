@@ -44,7 +44,13 @@ namespace BugTracker.Controllers
         [HttpGet("projects/new")]
         public IActionResult New()
         {
-            return View("NewProjectForm");
+            var vm = new NewProjectVm { Project = new Project() };
+            return View("NewProjectForm", vm);
+        }
+
+        public void Submit()
+        {
+
         }
     }
 }
