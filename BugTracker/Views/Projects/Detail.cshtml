@@ -23,6 +23,11 @@
     <span class="badge badge-info">Unassigned Bugs: @UnassignedBugs</span>
 </div>
 
+<a asp-controller="Bugs" asp-action="New" 
+   asp-route-projectId="@Model.Id" 
+   asp-route-projectName="@Model.Title" 
+   class="btn btn-primary m-3">Add New</a>
+
 <table class="table">
     <thead>
         <tr>

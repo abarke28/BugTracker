@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using BugTracker.Data;
 using BugTracker.Models;
+using BugTracker.Models.Dtos;
 using BugTracker.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -38,6 +39,16 @@ namespace BugTracker.Controllers
             vm.ProjectName = JsonConvert.DeserializeObject<Project>(apiResponse).Title;
 
             return View(vm);
+        }
+
+        [HttpGet("bugs/new/{projectId}/{projectName}")]
+        public IActionResult New(int projectId, string projectName)
+        {
+            var vm = new NewBugVm { Bug = new BugDto() };
+            vm.Bug.ProjectId = projectId;
+            vm.ProjectName = projectName;
+
+            return View("NewBugForm", vm);
         }
     }
 }
