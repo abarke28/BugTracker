@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using BugTracker.Data;
 using BugTracker.Models;
@@ -48,9 +49,15 @@ namespace BugTracker.Controllers
             return View("NewProjectForm", vm);
         }
 
-        public void Submit()
+        public async Task<bool> Submit(NewProjectVm vm)
         {
+            var projectJson = JsonConvert.SerializeObject(vm.Project);
+            var postContent = new StringContent(projectJson, Encoding.UTF8, "application/json");
 
+            var http = _clientFactory.CreateClient("projects");
+            var result = await http.PostAsync(Api.ProjectsController.Endpoint, postContent);
+
+            return result.IsSuccessStatusCode;
         }
     }
 }
