@@ -11,19 +11,23 @@
     <li class="breadcrumb-item active">@Model.Bug.Title</li>
 </ol>
 
-<div class="jumbotron">
-    <h3>@Model.Bug.Title</h3>
-    <p>@Model.Bug.Description</p>
-    <p>Submitted: @Model.Bug.DateSubmitted</p>
-    <p>Id#: @Model.Bug.Id</p>
-    @await Html.PartialAsync("_BugStatus", Model.Bug.Status)
+<div class="card border-primary m-3">
+    <div class="card-header">Bug #@Model.Bug.Id  -  @await Html.PartialAsync("_BugStatus", Model.Bug.Status) </div>
+    <div class="card-body">
+        <h2 class="card-title">@Model.Bug.Title</h2>
+        <p class="card-subtitle text-muted">@Model.Bug.DateSubmitted</p>
+        <p class="card-text">@Model.Bug.Description</p>
+        <p class="card-text">Assigned To: @Model.Bug.Assignee - Targeted Completion: @Model.Bug.DateTargeted.ToShortDateString()</p>
+    </div>
 </div>
+
+<h4 class="ml-3">Comments</h4>
 
 <div class="container">
     @foreach (var comment in Model.Bug.Comments)
     {
-        <div class="card border-primary mb-3" style="max-width: 40rem;">
-            <div class="card-header">@comment.TimeStamp</div>
+        <div class="card border-secondary mb-2" style="max-width: 30rem;">
+            <div class="card-header text-muted">@comment.TimeStamp</div>
             <div class="card-body">
                 <b class="card-title">@comment.SubmittedBy</b>
                 <p class="card-text">@comment.Text</p>
@@ -31,12 +35,12 @@
         </div>
     }
 
-    <div class="card border-primary mb-3" style="max-width: 40rem">
+    <div class="card border-secondary mb-2" style="max-width: 30rem">
         <div class="card-header">New Comment</div>
         <div class="card-body">
-            <b class="card-title">TODO: Current User</b>
+            <b class="card-title mb-2">TODO: Current User</b>
             <div>
-                <input type="text">
+                <input class="mb-2" type ="text">
             </div>
             <button class="btn btn-primary">Save</button>
         </div>
