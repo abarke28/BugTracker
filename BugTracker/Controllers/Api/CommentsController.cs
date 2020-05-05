@@ -29,14 +29,14 @@ namespace BugTracker.Controllers.Api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComment()
         {
-            return await _context.Comment.ToListAsync();
+            return await _context.Comments.ToListAsync();
         }
 
         // GET: api/Comments/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
-            var comment = await _context.Comment.FindAsync(id);
+            var comment = await _context.Comments.FindAsync(id);
 
             if (comment == null)
             {
@@ -85,7 +85,7 @@ namespace BugTracker.Controllers.Api
             var comment = _mapper.Map<Comment>(commentDto);
             comment.TimeStamp = DateTime.Now;
 
-            _context.Comment.Add(comment);
+            _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
@@ -95,13 +95,13 @@ namespace BugTracker.Controllers.Api
         [HttpDelete("{id}")]
         public async Task<ActionResult<Comment>> DeleteComment(int id)
         {
-            var comment = await _context.Comment.FindAsync(id);
+            var comment = await _context.Comments.FindAsync(id);
             if (comment == null)
             {
                 return NotFound();
             }
 
-            _context.Comment.Remove(comment);
+            _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
 
             return comment;
@@ -109,7 +109,7 @@ namespace BugTracker.Controllers.Api
 
         private bool CommentExists(int id)
         {
-            return _context.Comment.Any(e => e.Id == id);
+            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }

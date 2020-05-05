@@ -29,23 +29,23 @@ namespace BugTracker.Controllers.Api
 
         // GET: api/Bugs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BugDto>>> GetBug()
+        public async Task<ActionResult<IEnumerable<Bug>>> GetBug()
         {
-            return await _context.Bug.Select(b=>_mapper.Map<BugDto>(b)).ToListAsync();
+            return await _context.Bugs.ToListAsync();
         }
 
         // GET: api/Bugs/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<BugDto>> GetBug(int id)
+        public async Task<ActionResult<Bug>> GetBug(int id)
         {
-            var bug = await _context.Bug.Include(b=>b.Comments).FirstOrDefaultAsync(b=>b.Id==id);
+            var bug = await _context.Bugs.Include(b=>b.Comments).FirstOrDefaultAsync(b=>b.Id==id);
 
             if (bug == null)
             {
                 return NotFound();
             }
 
-            return _mapper.Map<BugDto>(bug);
+            return bug;
         }
 
         // PUT: api/Bugs/{id}
@@ -83,10 +83,10 @@ namespace BugTracker.Controllers.Api
         public async Task<ActionResult<Bug>> PostBug(BugDto bugDto)
         {
             var bug = _mapper.Map<Bug>(bugDto);
-            bug.DateSubmitted = DateTime.Today;
+            bug.DateSubmitted = DateTime.Now;
             bug.Status = BugStatus.Open;
 
-            _context.Bug.Add(bug);
+            _context.Bugs.Add(bug);
             await _context.SaveChangesAsync();
 
             return Created(Request.Path.ToString() + "/" + bug.Id, bugDto);
@@ -96,13 +96,13 @@ namespace BugTracker.Controllers.Api
         [HttpDelete("{id}")]
         public async Task<ActionResult<Bug>> DeleteBug(int id)
         {
-            var bug = await _context.Bug.FindAsync(id);
+            var bug = await _context.Bugs.FindAsync(id);
             if (bug == null)
             {
                 return NotFound();
             }
 
-            _context.Bug.Remove(bug);
+            _context.Bugs.Remove(bug);
             await _context.SaveChangesAsync();
 
             return bug;
@@ -110,7 +110,7 @@ namespace BugTracker.Controllers.Api
 
         private bool BugExists(int id)
         {
-            return _context.Bug.Any(e => e.Id == id);
+            return _context.Bugs.Any(e => e.Id == id);
         }
     }
 }

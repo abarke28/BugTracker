@@ -10,5 +10,6 @@ namespace BugTracker.Models.Dtos
         public string Title { get; set; }
         public string Description { get; set; }
         public int ProjectId { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
