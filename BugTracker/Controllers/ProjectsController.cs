@@ -66,14 +66,16 @@ namespace BugTracker.Controllers
         {
             // Summary
             //
-            // Post submitted Projec to the internal API, return a bool success code
+            // Post submitted Project to the internal API, redirect to either index or
+            // back to form based on success
+
             if (!ModelState.IsValid) return View("New", vm);
 
             var projectJson = JsonConvert.SerializeObject(vm.Project);
             var postContent = new StringContent(projectJson, Encoding.UTF8, "application/json");
 
             var http = _clientFactory.CreateClient("projects");
-            var result = await http.PostAsync(Api.ProjectsController.Endpoint, postContent);
+            var result = await http.PostAsync(String.Empty, postContent);
 
             return result.IsSuccessStatusCode ? RedirectToAction("Index") : RedirectToAction("New", vm);
         }
