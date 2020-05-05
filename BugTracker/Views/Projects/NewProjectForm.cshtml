@@ -12,7 +12,7 @@
 
 <h2>New Project</h2>
 
-<form asp-controller="Projects" asp-action="Post" method="post" class="form-group">
+<form asp-controller="Projects" asp-action="Submit" method="post" class="form-group">
     <div class="form-group">
         <label asp-for="@Model.Project.Title"></label>
         <input asp-for="@Model.Project.Title" class="form-control" />
@@ -21,4 +21,3 @@
     
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-

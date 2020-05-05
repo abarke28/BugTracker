@@ -62,11 +62,12 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<bool> Submit(NewProjectVm vm)
+        public async Task<IActionResult> Submit(NewProjectVm vm)
         {
             // Summary
             //
             // Post submitted Projec to the internal API, return a bool success code
+            if (!ModelState.IsValid) return View("New", vm);
 
             var projectJson = JsonConvert.SerializeObject(vm.Project);
             var postContent = new StringContent(projectJson, Encoding.UTF8, "application/json");
@@ -74,7 +75,7 @@ namespace BugTracker.Controllers
             var http = _clientFactory.CreateClient("projects");
             var result = await http.PostAsync(Api.ProjectsController.Endpoint, postContent);
 
-            return result.IsSuccessStatusCode;
+            return result.IsSuccessStatusCode ? RedirectToAction("Index") : RedirectToAction("New", vm);
         }
     }
 }
