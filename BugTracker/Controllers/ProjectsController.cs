@@ -25,6 +25,10 @@ namespace BugTracker.Controllers
         [HttpGet("projects")]
         public async Task<IActionResult> Index()
         {
+            // Summary
+            //
+            // Returns list of all projects, consumes internal API
+
             var http = _clientFactory.CreateClient("projects");
             var apiResponse = await http.GetAsync(String.Empty).Result.Content.ReadAsStringAsync();
             var vm = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
@@ -35,6 +39,10 @@ namespace BugTracker.Controllers
         [HttpGet("projects/{id}")]
         public async Task<IActionResult> Detail(int id)
         {
+            // Summary
+            //
+            // Returns Project overview including list of Bugs, consumes internal API
+
             var http = _clientFactory.CreateClient("projects");
             var apiResponse = await http.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
             var vm = JsonConvert.DeserializeObject<Project>(apiResponse);
@@ -45,12 +53,21 @@ namespace BugTracker.Controllers
         [HttpGet("projects/new")]
         public IActionResult New()
         {
+            // Summary
+            //
+            // Returns New Project form, distinct from the Edit Project form
+
             var vm = new NewProjectVm { Project = new Project() };
             return View("NewProjectForm", vm);
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<bool> Submit(NewProjectVm vm)
         {
+            // Summary
+            //
+            // Post submitted Projec to the internal API, return a bool success code
+
             var projectJson = JsonConvert.SerializeObject(vm.Project);
             var postContent = new StringContent(projectJson, Encoding.UTF8, "application/json");
 
