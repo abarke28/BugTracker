@@ -21,12 +21,12 @@
     </div>
 </div>
 
-<h4 class="ml-3">Comments</h4>
+<h4 class="mb-3 ml-3">Comments</h4>
 
 <div class="container">
     @foreach (var comment in Model.Bug.Comments)
     {
-        <div class="card border-secondary mb-2" style="max-width: 30rem;">
+        <div class="card border-secondary mb-4 ml-3" style="max-width: 30rem;">
             <div class="card-header text-muted">@comment.TimeStamp</div>
             <div class="card-body">
                 <b class="card-title">@comment.SubmittedBy</b>
@@ -35,7 +35,7 @@
         </div>
     }
 
-    <div class="card border-secondary mb-2" style="max-width: 30rem">
+    <div class="card border-secondary mb-2 ml-3" style="max-width: 30rem">
         <div class="card-header">New Comment</div>
         <div class="card-body">
             <b class="card-title mb-2">TODO: Current User</b>

@@ -29,14 +29,14 @@ namespace BugTracker.Controllers.Api
 
         // GET: api/Bugs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bug>>> GetBug()
+        public async Task<ActionResult<IEnumerable<BugDto>>> GetBug()
         {
-            return await _context.Bug.ToListAsync();
+            return await _context.Bug.Select(b=>_mapper.Map<BugDto>(b)).ToListAsync();
         }
 
         // GET: api/Bugs/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Bug>> GetBug(int id)
+        public async Task<ActionResult<BugDto>> GetBug(int id)
         {
             var bug = await _context.Bug.Include(b=>b.Comments).FirstOrDefaultAsync(b=>b.Id==id);
 
@@ -45,7 +45,7 @@ namespace BugTracker.Controllers.Api
                 return NotFound();
             }
 
-            return bug;
+            return _mapper.Map<BugDto>(bug);
         }
 
         // PUT: api/Bugs/{id}
@@ -83,7 +83,7 @@ namespace BugTracker.Controllers.Api
         public async Task<ActionResult<Bug>> PostBug(BugDto bugDto)
         {
             var bug = _mapper.Map<Bug>(bugDto);
-            bug.DateAssigned = DateTime.Today;
+            bug.DateSubmitted = DateTime.Today;
             bug.Status = BugStatus.Open;
 
             _context.Bug.Add(bug);
