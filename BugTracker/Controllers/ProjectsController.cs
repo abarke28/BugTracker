@@ -12,29 +12,30 @@ namespace BugTracker.Controllers
 {
     public class ProjectsController : Controller
     {
+        private readonly IHttpClientFactory _clientFactory;
+
+        public ProjectsController(IHttpClientFactory clientFactory)
+        {
+            _clientFactory = clientFactory;
+        }
+
         // GET /projects
         [HttpGet("projects")]
         public async Task<IActionResult> Index()
         {
-            var vm = new List<Project>();
-
-            using (var client = new HttpClient())
-            {
-                string apiResponse = await client.GetAsync(Api.ProjectsController.Endpoint).Result.Content.ReadAsStringAsync();
-                vm = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
-            };
+            var client = _clientFactory.CreateClient("projects");
+            var apiResponse = await client.GetAsync("").Result.Content.ReadAsStringAsync();
+            var vm = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
 
             return View(vm);
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            var vm = new Project();
-            using (var client = new HttpClient())
-            {
-                string apiResponse = await client.GetAsync(Api.ProjectsController.Endpoint + @"/" + id).Result.Content.ReadAsStringAsync();
-                vm = JsonConvert.DeserializeObject<Project>(apiResponse);
-            }
+            var client = _clientFactory.CreateClient("projects");
+            var apiResponse = await client.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
+            var vm = JsonConvert.DeserializeObject<Project>(apiResponse);
+
             return View(vm);
         }
     }
