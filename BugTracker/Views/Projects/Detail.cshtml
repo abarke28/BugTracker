@@ -16,11 +16,33 @@
 
 <h3>@Model.Title</h3>
 
-<div class="container mb-3">
-    <span class="badge badge-info">Total Bugs: @TotalBugs</span>
-    <span class="badge badge-info">Open Bugs: @OpenBugs</span>
-    <span class="badge badge-info">Closed Bugs: @ClosedBugs</span>
-    <span class="badge badge-info">Unassigned Bugs: @UnassignedBugs</span>
+<div class="container">
+    <div class="row no-gutters">
+        <div class="col-4">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Total Bugs
+                    <span class="badge badge-primary badge-pill">@TotalBugs</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Open Bugs
+                    <span class="badge badge-primary badge-pill">@OpenBugs</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-4">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Closed Bugs
+                    <span class="badge badge-primary badge-pill">@ClosedBugs</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Unassigned Bugs
+                    <span class="badge badge-primary badge-pill">@UnassignedBugs</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <a asp-controller="Bugs" asp-action="New" 
@@ -33,7 +55,7 @@
         <tr>
             <th>Id</th>
             <th>Title</th>
-            <th>Description</th>
+            <th class="col-width-40">Description</th>
             <th>Status</th>
             <th>Submitted</th>
             <th></th>
@@ -49,7 +71,7 @@
                 <td>
                     @bug.Title
                 </td>
-                <td class="col-md-3">
+                <td class="col-width-40">
                     @bug.Description
                 </td>
                 <td>

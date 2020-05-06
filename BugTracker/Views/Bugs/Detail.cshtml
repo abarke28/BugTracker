@@ -12,10 +12,14 @@
 </ol>
 
 <div class="card border-primary m-3">
-    <div class="card-header">Bug #@Model.Bug.Id @await Html.PartialAsync("_BugStatus", Model.Bug.Status) </div>
+    <div class="card-header">
+        <span>Bug #@Model.Bug.Id </span>
+        <span>@await Html.PartialAsync("_BugStatus", Model.Bug.Status) </span>
+        <span class="float-right"><a asp-controller="Bugs" asp-action="Edit" asp-route-id="@Model.Bug.Id">Edit</a></span>
+    </div>
     <div class="card-body">
-        <h2 class="card-title">@Model.Bug.Title</h2>
         <p class="card-subtitle text-muted">@Model.Bug.DateSubmitted</p>
+        <h2 class="card-title">@Model.Bug.Title</h2>
         <p class="card-text">@Model.Bug.Description</p>
         <p class="card-text">Assigned To: @Model.Bug.Assignee - Targeted Completion: @Model.Bug.DateTargeted.ToShortDateString()</p>
     </div>

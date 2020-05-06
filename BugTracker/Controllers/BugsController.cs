@@ -75,5 +75,21 @@ namespace BugTracker.Controllers
                 RedirectToAction("Detail", new { projectId = vm.Bug.ProjectId, id = bugId }) :
                 RedirectToAction("New", new { projectId = vm.Bug.ProjectId, projectName = vm.ProjectName });
         }
+
+        [HttpGet("bugs/edit/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var vm = new EditBugVm();
+
+            var http = _clientFactory.CreateClient("bugs");
+            var apiResponse = await http.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
+            vm.Bug = JsonConvert.DeserializeObject<Bug>(apiResponse);
+
+            http = _clientFactory.CreateClient("projects");
+            apiResponse = await http.GetAsync(vm.Bug.ProjectId.ToString()).Result.Content.ReadAsStringAsync();
+            vm.ProjectName = JsonConvert.DeserializeObject<Project>(apiResponse).Title;
+
+            return View("EditBugForm", vm);
+        }
     }
 }

@@ -1,0 +1,15 @@
+﻿@model BugTracker.Models.ViewModels.EditBugVm
+@{
+    ViewData["Title"] = "EditBugForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-controller="Projects" asp-action="Index">Projects</a></li>
+    <li class="breadcrumb-item"><a asp-controller="Projects" asp-action="Detail" asp-route-id="@Model.Bug.ProjectId">@Model.ProjectName</a></li>
+    <li class="breadcrumb-item active">@Model.Bug.Title</li>
+</ol>
+
+<h2>Edit Bug</h2>
+

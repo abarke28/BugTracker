@@ -84,3 +84,30 @@ body {
     border-color: red;
     border-width: medium;
 }
+
+/* Table Coloumn width styles
+--------------------------------------------------------*/
+
+.col-width-50 {
+    width: 50%;
+}
+
+.col-width-40 {
+    width: 40%;
+}
+
+.col-width-30 {
+    width: 30%;
+}
+
+.col-width-25 {
+    width: 25%;
+}
+
+.col-width-20 {
+    width: 20%;
+}
+
+.col-width-10 {
+    width: 10%;
+}
