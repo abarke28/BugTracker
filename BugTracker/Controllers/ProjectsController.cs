@@ -22,7 +22,6 @@ namespace BugTracker.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET: /projects
         [HttpGet("projects")]
         public async Task<IActionResult> Index()
         {
@@ -37,7 +36,6 @@ namespace BugTracker.Controllers
             return View(vm);
         }
 
-        // GET: /projects/id
         [HttpGet("projects/{id}")]
         public async Task<IActionResult> Detail(int id)
         {
@@ -52,7 +50,6 @@ namespace BugTracker.Controllers
             return View(vm);
         }
 
-        // GET: /projects/new
         [HttpGet("projects/new")]
         public IActionResult New()
         {
@@ -64,7 +61,6 @@ namespace BugTracker.Controllers
             return View("NewProjectForm", vm);
         }
 
-        // POST: /projects
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Submit(NewProjectVm vm)
         {
