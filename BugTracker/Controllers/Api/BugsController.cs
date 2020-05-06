@@ -35,7 +35,7 @@ namespace BugTracker.Controllers.Api
             return await _context.Bugs.ToListAsync();
         }
 
-        // GET: api/Bugs/{id}
+        // GET: api/Bugs/id
         [HttpGet("{id}")]
         public async Task<ActionResult<Bug>> GetBug(int id)
         {
@@ -49,7 +49,7 @@ namespace BugTracker.Controllers.Api
             return bug;
         }
 
-        // PUT: api/Bugs/{id}
+        // PUT: api/Bugs/id
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBug(int id, Bug bug)
         {
@@ -90,10 +90,10 @@ namespace BugTracker.Controllers.Api
             _context.Bugs.Add(bug);
             await _context.SaveChangesAsync();
 
-            return Created(Request.Path.ToString() + "/" + bug.Id, bugDto);
+            return Created(Request.Path.ToString() + "/" + bug.Id, bug);
         }
 
-        // DELETE: api/Bugs/{id}
+        // DELETE: api/Bugs/id
         [HttpDelete("{id}")]
         public async Task<ActionResult<Bug>> DeleteBug(int id)
         {

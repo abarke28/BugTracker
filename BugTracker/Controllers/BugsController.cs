@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using BugTracker.Data;
 using BugTracker.Models;
@@ -21,6 +22,7 @@ namespace BugTracker.Controllers
             _clientFactory = clientFactory;
         }
 
+        // GET: /projects/detail/projectId/id
         [HttpGet("projects/detail/{projectId}/{id}")]   
         public async Task<IActionResult> Detail(int projectId, int id)
         {
@@ -41,6 +43,7 @@ namespace BugTracker.Controllers
             return View(vm);
         }
 
+        // GET: /bugs/new/projectId/projectName
         [HttpGet("bugs/new/{projectId}/{projectName}")]
         public IActionResult New(int projectId, string projectName)
         {
@@ -49,6 +52,31 @@ namespace BugTracker.Controllers
             vm.ProjectName = projectName;
 
             return View("NewBugForm", vm);
+        }
+
+        // POST: /bugs
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Submit(NewBugVm vm)
+        {
+            // Summary
+            //
+            // Post submitted Bug to the internal API, redirect to either index or
+            // back to form based on success
+
+            if (!ModelState.IsValid) return View("New", vm);
+
+            var bugJson = JsonConvert.SerializeObject(vm.Bug);
+            var postContent = new StringContent(bugJson, Encoding.UTF8, "application/json");
+
+            var http = _clientFactory.CreateClient("bugs");
+            var result = await http.PostAsync(String.Empty, postContent);
+            var bugStr = await result.Content.ReadAsStringAsync();
+            var bugId = JsonConvert.DeserializeObject<Bug>(bugStr).Id;
+
+
+            return result.IsSuccessStatusCode ?
+                RedirectToAction("Detail", new { projectId = vm.Bug.ProjectId, id = bugId }) :
+                RedirectToAction("New", new { projectId = vm.Bug.ProjectId, projectName = vm.ProjectName });
         }
     }
 }
