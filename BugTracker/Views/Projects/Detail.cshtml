@@ -53,7 +53,7 @@
                     @bug.Description
                 </td>
                 <td>
-                    @bug.Status
+                    <partial name="_BugStatus" for=@bug.Status />
                 </td>
                 <td>
                     @bug.DateSubmitted.Date.ToShortDateString()
