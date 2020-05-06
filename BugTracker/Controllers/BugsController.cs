@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using BugTracker.Data;
+using BugTracker.utils;
 using BugTracker.Models;
 using BugTracker.Models.Dtos;
 using BugTracker.Models.ViewModels;
@@ -65,14 +66,10 @@ namespace BugTracker.Controllers
 
             if (!ModelState.IsValid) return View("New", vm);
 
-            var bugJson = JsonConvert.SerializeObject(vm.Bug);
-            var postContent = new StringContent(bugJson, Encoding.UTF8, "application/json");
-
             var http = _clientFactory.CreateClient("bugs");
-            var result = await http.PostAsync(String.Empty, postContent);
+            var result = await http.PostAsync(String.Empty, vm.Bug);
             var bugStr = await result.Content.ReadAsStringAsync();
             var bugId = JsonConvert.DeserializeObject<Bug>(bugStr).Id;
-
 
             return result.IsSuccessStatusCode ?
                 RedirectToAction("Detail", new { projectId = vm.Bug.ProjectId, id = bugId }) :
