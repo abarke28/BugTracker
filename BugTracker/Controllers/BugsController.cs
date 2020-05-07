@@ -12,6 +12,7 @@ using BugTracker.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BugTracker.Controllers
 {
@@ -82,6 +83,16 @@ namespace BugTracker.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var vm = new EditBugVm();
+
+            var statuses = Enum.GetValues(typeof(BugStatus)).Cast<BugStatus>();
+            var selectList = new List<SelectListItem>();
+
+            foreach (var status in statuses)
+            {
+                selectList.Add(new SelectListItem(status.ToString(), status.ToString()));
+            }
+
+            vm.Statuses = selectList;
 
             var http = _clientFactory.CreateClient("bugs");
             var apiResponse = await http.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();

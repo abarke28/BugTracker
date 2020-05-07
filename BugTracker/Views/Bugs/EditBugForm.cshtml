@@ -32,7 +32,16 @@
         <span asp-validation-for="Bug.Description"></span>
     </div>
 
+    <div class="form-group">
+        <label asp-for="Bug.DateTargeted"></label>
+        <input type="date" asp-for="Bug.DateTargeted" class="form-control" />
+        <span asp-validation-for="Bug.DateTargeted"></span>
+    </div>
 
+    <div class="form-group">
+        <label asp-for="Bug.Status"></label>
+        <select asp-for="Bug.Status" asp-items="Model.Statuses"></select>
+    </div>
 
     <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
     <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
