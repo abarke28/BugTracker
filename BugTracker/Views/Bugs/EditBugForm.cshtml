@@ -13,3 +13,29 @@
 
 <h2>Edit Bug</h2>
 
+<form asp-controller="Bugs" asp-action="Save">
+    <div class="form-group">
+        <label asp-for="Bug.Title"></label>
+        <input asp-for="Bug.Title" class="form-control" />
+        <span asp-validation-for="Bug.Title"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Bug.Description"></label>
+        <input asp-for="Bug.Description" class="form-control" />
+        <span asp-validation-for="Bug.Description"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Bug.Assignee"></label>
+        <input asp-for="Bug.Assignee" class="form-control" />
+        <span asp-validation-for="Bug.Description"></span>
+    </div>
+
+
+
+    <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
+    <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
+
+    <button type="submit" class="btn btn-primary mb-3">Save</button>
+</form>

@@ -13,7 +13,6 @@ namespace BugTracker.Models
         public string Description { get; set; }
         public string Assignee { get; set; }
         public DateTime DateSubmitted { get; set; }
-        public DateTime DateAssigned { get; set; }
         public DateTime DateTargeted { get; set; }
         public DateTime DateResolved { get; set; }
         public BugStatus Status { get; set; }
