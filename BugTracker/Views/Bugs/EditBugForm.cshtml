@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "EditBugForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var datePickerDefault = Model.Bug.DateTargeted == DateTime.MinValue ?
+        (DateTime.Today + TimeSpan.FromDays(14)).ToString("yyyy-MM-dd") :
+        Model.Bug.DateTargeted.ToString("yyyy-MM-dd");
 }
 
 <ol class="breadcrumb">
@@ -34,14 +37,14 @@
 
     <div class="form-group">
         <label asp-for="Bug.DateTargeted"></label>
-        <input type="date" asp-for="Bug.DateTargeted" class="form-control" />
+        <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
         <span asp-validation-for="Bug.DateTargeted"></span>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label asp-for="Bug.Status"></label>
         <select asp-for="Bug.Status" asp-items="Model.Statuses"></select>
-    </div>
+    </div>*@
 
     <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
     <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
