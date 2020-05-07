@@ -85,6 +85,7 @@ namespace BugTracker.Controllers.Api
         {
             var bug = _mapper.Map<Bug>(bugDto);
             bug.DateSubmitted = DateTime.Now;
+            bug.DateTargeted = DateTime.Now + TimeSpan.FromDays(14); // Default target of two weeks.
             bug.Status = BugStatus.Open;
 
             _context.Bugs.Add(bug);

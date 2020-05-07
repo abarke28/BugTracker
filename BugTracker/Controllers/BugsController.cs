@@ -11,9 +11,11 @@ using BugTracker.Models.Dtos;
 using BugTracker.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class BugsController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;

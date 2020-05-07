@@ -8,11 +8,13 @@ using BugTracker.Data;
 using BugTracker.Models;
 using BugTracker.Models.Dtos;
 using BugTracker.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
