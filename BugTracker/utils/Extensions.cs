@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BugTracker.utils
 {
-    public static class HttpExtension
+    public static class Extensions
     {
         /// <summary>
         /// Extension: Send a POST request to the specified Uri as an asynchronous operation.
@@ -23,5 +23,15 @@ namespace BugTracker.utils
 
             return http.PostAsync(requestUri, contentStr);
         }
+
+        /// <summary>
+        /// Extension: Enumerates an Enum to a IEnumerable
+        /// </summary>
+        public static IEnumerable<T> Enumerate<T>(this T sourceEnum) where T : struct, IConvertible
+        {
+            if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Method not valid for {0}, only valid for Enums",sourceEnum));
+
+            return Enum.GetValues(typeof(T)).Cast<T>();
+        } 
     }
 }
