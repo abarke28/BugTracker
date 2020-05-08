@@ -21,11 +21,31 @@
         <p class="card-subtitle text-muted">@Model.Bug.DateSubmitted</p>
         <h2 class="card-title">@Model.Bug.Title</h2>
         <p class="card-text">@Model.Bug.Description</p>
-        <p class="card-text">Assigned To: @Model.Bug.Assignee - Targeted Completion: @Model.Bug.DateTargeted.ToShortDateString()</p>
+        @if (Model.Bug.Status != BugStatus.Closed)
+        {
+            <p class="card-text">
+                @if (!String.IsNullOrEmpty(Model.Bug.Assignee))
+                {
+                    <span>Assigned To: @Model.Bug.Assignee</span>
+                }
+                <span>Targeted Completion: @Model.Bug.DateTargeted.ToShortDateString()</span>
+            </p>
+        }
+        @if (Model.Bug.Status == BugStatus.Closed)
+        {
+            <p class="card-text">
+                <span class="mx-2">Closed: @Model.Bug.DateResolved</span>
+                <span class="mx-2">Resolution PR/Commit: @Model.Bug.ResolutionCommit</span>
+            </p>
+            @if (!String.IsNullOrEmpty(Model.Bug.ResolutionDescription))
+            {
+                <p class="card-text">Details: @Model.Bug.ResolutionDescription</p>
+            }
+        }
     </div>
 </div>
 
-<h4 class="m-3">Comments</h4>
+<h4 class="my-3 pl-3">Comments</h4>
 
 <div class="container">
     <div id="comments">
