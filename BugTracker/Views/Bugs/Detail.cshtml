@@ -82,18 +82,24 @@
                                 method: "POST",
                                 data: JSON.stringify(vm),
                                 contentType: "application/json"
-                            }).done(function(){
+                            }).done(function () {
+                                var now = Date.now();
+                                var date = new Date(now);
+                                var offset = date.getTimezoneOffset();
+                                date = new Date(date.getTime() + (offset * 60 * 1000));
+                                date = date.toISOString().split('T')[0];
+
                                 var newCommentHtml =
-                                    "<div class='card border-secondary mb-4 ml-3' stle='max-width: 30rem'>"
-                                    + "<div class='card-header text-muted'>" + Date.now().toString() + "</div>"
+                                    "<div class='card border-secondary mb-4 ml-3' style='max-width: 30rem'>"
+                                    + "<div class='card-header text-muted'>" + date + "</div>"
                                     + "<div class='card-body'>"
-                                    + "<b class='card-title'>" + "@Model.UserName" + "</b>"
+                                    + "<b class='card-title'>" + vm.userName + "</b>"
                                     + "<p class='card-text'>" + $.trim($("#newComment").val()) + "</p>"
                                     + "</div>"
                                     + "</div>";
 
                                 $("#comments").append(newCommentHtml);
-                                $("#newComment").val() = "";
+                                document.getElementById("newComment").value = "";
                             }).fail(function(){
                                 bootbox.alert("Comment Posting Failed")
                             });
