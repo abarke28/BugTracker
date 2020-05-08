@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace BugTracker.Controllers
 {
@@ -33,7 +34,8 @@ namespace BugTracker.Controllers
             var vm = new BugDetailVm 
             { 
                 Bug = new Bug(),
-                ProjectId = projectId
+                ProjectId = projectId,
+                UserName = User.FindFirst(ClaimTypes.Name).Value.Split("@")?[0] ?? "guest"
             };
 
             var httpClient = _clientFactory.CreateClient("bugs");

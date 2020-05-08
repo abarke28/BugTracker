@@ -10,5 +10,6 @@ namespace BugTracker.Models.ViewModels
         public Bug Bug { get; set; }
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
+        public string UserName { get; set; }
     }
 }

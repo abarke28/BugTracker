@@ -49,5 +49,13 @@
     <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
     <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
 
-    <button type="submit" class="btn btn-primary mb-3">Save</button>
+    <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
 </form>
+
+@section Scripts
+{
+    <script>
+        $(document).ready();
+
+    </script>
+}
