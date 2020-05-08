@@ -27,18 +27,20 @@
 
 <h4 class="m-3">Comments</h4>
 
-<div id="comments" class="container">
-    @foreach (var comment in Model.Bug.Comments)
-    {
-        <div class="card border-secondary mb-4 ml-3" style="max-width: 30rem;">
-            <div class="card-header text-muted">@comment.TimeStamp</div>
-            <div class="card-body">
-                <b class="card-title">@comment.SubmittedBy</b>
-                <p class="card-text">@comment.Text</p>
+<div class="container">
+    <div id="comments">
+        @foreach (var comment in Model.Bug.Comments)
+        {
+            <div class="card border-secondary mb-4 ml-3" style="max-width: 30rem;">
+                <div class="card-header text-muted">@comment.TimeStamp</div>
+                <div class="card-body">
+                    <b class="card-title">@comment.SubmittedBy</b>
+                    <p class="card-text">@comment.Text</p>
+                </div>
             </div>
-        </div>
-    }
-
+        }
+    </div>
+    
     <div id="newCommentCard" class="card border-secondary mb-2 ml-3" style="max-width: 30rem">
         <div class="card-header">New Comment</div>
         <div class="card-body">
@@ -64,13 +66,13 @@
                 {
                     var vm = {
                         bugId: @Model.Bug.Id,
-                        submittedBy: @Model.UserName,
-                        text: commentText
+                        text: commentText,
+                        userName: "@Model.UserName"
                     };
 
                     console.log(vm.bugId);
                     console.log(vm.text);
-                    console.log(vm.submittedBy);
+                    console.log(vm.userName);
 
                     bootbox.confirm("Save Comment?", function (result) {
                         if (result) {
@@ -80,23 +82,25 @@
                                 method: "POST",
                                 data: JSON.stringify(vm),
                                 contentType: "application/json"
+                            }).done(function(){
+                                var newCommentHtml =
+                                    "<div class='card border-secondary mb-4 ml-3' stle='max-width: 30rem'>"
+                                    + "<div class='card-header text-muted'>" + Date.now().toString() + "</div>"
+                                    + "<div class='card-body'>"
+                                    + "<b class='card-title'>" + "@Model.UserName" + "</b>"
+                                    + "<p class='card-text'>" + $.trim($("#newComment").val()) + "</p>"
+                                    + "</div>"
+                                    + "</div>";
 
+                                $("#comments").append(newCommentHtml);
+                                $("#newComment").val() = "";
+                            }).fail(function(){
+                                bootbox.alert("Comment Posting Failed")
                             });
                         }
-                    });  
+                    });
                 }
             });
-
-            @*var newCommentHtml =
-                "<div class='card border-secondary mb-4 ml-3' stle='max-width: 30rem'>"
-                + "<div class='card-header text-muted'>" + Date.now.toString() + "</div>"
-                + "<div class='card-body'>"
-                + "<b class='card-title'>" + @User.Identity.Name.Split("@")[0] + "</b>"
-                + "<p class='card-text'>" + $.trim($("#newComment").val()) + "</p>"
-                + "</div>"
-                + "</div>";
-        
-            $("#comments").append(newCommentHtml);*@
         });
     </script>
 } 
