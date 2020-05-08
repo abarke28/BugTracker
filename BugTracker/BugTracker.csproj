@@ -5,6 +5,14 @@
     <UserSecretsId>aspnet-BugTracker-7D040942-81C4-44E1-B948-25E4BD9F4D08</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
