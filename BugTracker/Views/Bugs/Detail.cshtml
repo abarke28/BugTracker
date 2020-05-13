@@ -18,28 +18,28 @@
         <span class="float-right"><a asp-controller="Bugs" asp-action="Edit" asp-route-id="@Model.Bug.Id">Edit</a></span>
     </div>
     <div class="card-body">
-        <p class="card-subtitle text-muted">@Model.Bug.DateSubmitted</p>
+        <p class="card-subtitle text-muted">@Model.Bug.DateSubmitted.ToShortDateString()</p>
         <h2 class="card-title">@Model.Bug.Title</h2>
         <p class="card-text">@Model.Bug.Description</p>
         @if (Model.Bug.Status != BugStatus.Closed)
         {
             <p class="card-text">
+                <span class="px-3">Targeted Completion:  @Model.Bug.DateTargeted.ToShortDateString()</span>
                 @if (!String.IsNullOrEmpty(Model.Bug.Assignee))
                 {
-                    <span>Assigned To: @Model.Bug.Assignee</span>
+                    <span>Assigned To:  @Model.Bug.Assignee</span>
                 }
-                <span>Targeted Completion: @Model.Bug.DateTargeted.ToShortDateString()</span>
             </p>
         }
         @if (Model.Bug.Status == BugStatus.Closed)
         {
             <p class="card-text">
-                <span class="mx-2">Closed: @Model.Bug.DateResolved</span>
-                <span class="mx-2">Resolution PR/Commit: @Model.Bug.ResolutionCommit</span>
+                <span>Closed: @Model.Bug.DateResolved</span>
+                <span class="px-3">Resolution PR/Commit:  @Model.Bug.ResolutionCommit</span>
             </p>
             @if (!String.IsNullOrEmpty(Model.Bug.ResolutionDescription))
             {
-                <p class="card-text">Details: @Model.Bug.ResolutionDescription</p>
+                <p class="card-text">Details:  @Model.Bug.ResolutionDescription</p>
             }
         }
     </div>
@@ -87,7 +87,7 @@
                     var vm = {
                         bugId: @Model.Bug.Id,
                         text: commentText,
-                        userName: "@Model.UserName"
+                        submittedBy: "@Model.UserName"
                     };
 
                     bootbox.confirm("Save Comment?", function (result) {
@@ -109,7 +109,7 @@
                                     "<div class='card border-secondary mb-4 ml-3' style='max-width: 30rem'>"
                                     + "<div class='card-header text-muted'>" + date + "</div>"
                                     + "<div class='card-body'>"
-                                    + "<b class='card-title'>" + vm.userName + "</b>"
+                                    + "<b class='card-title'>" + vm.submittedBy + "</b>"
                                     + "<p class='card-text'>" + $.trim($("#newComment").val()) + "</p>"
                                     + "</div>"
                                     + "</div>";
