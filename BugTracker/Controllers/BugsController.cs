@@ -27,7 +27,6 @@ namespace BugTracker.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET: /projects/detail/projectId/id
         [HttpGet("projects/detail/{projectId}/{id}")]   
         public async Task<IActionResult> Detail(int projectId, int id)
         {
@@ -49,7 +48,6 @@ namespace BugTracker.Controllers
             return View(vm);
         }
 
-        // GET: /bugs/new/projectId/projectName
         [HttpGet("bugs/new/{projectId}/{projectName}")]
         public IActionResult New(int projectId, string projectName)
         {
@@ -60,7 +58,6 @@ namespace BugTracker.Controllers
             return View("NewBugForm", vm);
         }
 
-        // POST: /bugs
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Submit(NewBugVm vm)
         {
@@ -85,16 +82,6 @@ namespace BugTracker.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var vm = new EditBugVm();
-
-            var statuses = Enum.GetValues(typeof(BugStatus)).Cast<BugStatus>();
-            var selectList = new List<SelectListItem>();
-
-            foreach (var status in statuses)
-            {
-                selectList.Add(new SelectListItem(status.ToString(), status.ToString()));
-            }
-
-            vm.Statuses = selectList;
 
             var http = _clientFactory.CreateClient("bugs");
             var apiResponse = await http.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
