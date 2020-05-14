@@ -59,6 +59,9 @@
 
         <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
         <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
+        <input asp-for="Bug.DateSubmitted" value="@Model.Bug.DateSubmitted" type="hidden" />
+        <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" />
+        <input asp-for="@Model.ProjectName" value="@Model.ProjectName" type="hidden" />
 
         <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
     </form>
