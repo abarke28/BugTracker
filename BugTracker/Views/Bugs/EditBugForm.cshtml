@@ -16,41 +16,43 @@
 
 <h2>Edit Bug</h2>
 
-<form asp-controller="Bugs" asp-action="Save">
-    <div class="form-group">
-        <label asp-for="Bug.Title"></label>
-        <input asp-for="Bug.Title" class="form-control" />
-        <span asp-validation-for="Bug.Title"></span>
-    </div>
+<div class="col-8 border rounded">
+    <form asp-controller="Bugs" asp-action="Save">
+        <div class="form-group mt-3">
+            <label asp-for="Bug.Title"></label>
+            <input asp-for="Bug.Title" class="form-control" />
+            <span asp-validation-for="Bug.Title"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Bug.Description"></label>
-        <input asp-for="Bug.Description" class="form-control" />
-        <span asp-validation-for="Bug.Description"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Bug.Description"></label>
+            <textarea asp-for="Bug.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Bug.Description"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Bug.Assignee"></label>
-        <input asp-for="Bug.Assignee" class="form-control" />
-        <span asp-validation-for="Bug.Description"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Bug.Assignee"></label>
+            <input asp-for="Bug.Assignee" class="form-control" />
+            <span asp-validation-for="Bug.Description"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Bug.DateTargeted"></label>
-        <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
-        <span asp-validation-for="Bug.DateTargeted"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Bug.DateTargeted"></label>
+            <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
+            <span asp-validation-for="Bug.DateTargeted"></span>
+        </div>
 
-    @*<div class="form-group">
-        <label asp-for="Bug.Status"></label>
-        <select asp-for="Bug.Status" asp-items="Model.Statuses"></select>
-    </div>*@
+        @*<div class="form-group">
+                <label asp-for="Bug.Status"></label>
+                <select asp-for="Bug.Status" asp-items="Model.Statuses"></select>
+            </div>*@
 
-    <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
-    <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
+        <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
+        <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
 
-    <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
-</form>
+        <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
+    </form>
+</div>
 
 @section Scripts
 {

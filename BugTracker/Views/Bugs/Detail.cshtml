@@ -24,10 +24,10 @@
         @if (Model.Bug.Status != BugStatus.Closed)
         {
             <p class="card-text">
-                <span class="px-3">Targeted Completion:  @Model.Bug.DateTargeted.ToShortDateString()</span>
+                <span class="px-3 text-muted">Targeted Completion:  @Model.Bug.DateTargeted.ToShortDateString()</span>
                 @if (!String.IsNullOrEmpty(Model.Bug.Assignee))
                 {
-                    <span>Assigned To:  @Model.Bug.Assignee</span>
+                    <span class="text-muted">Assigned To:  @Model.Bug.Assignee</span>
                 }
             </p>
         }
@@ -45,9 +45,9 @@
     </div>
 </div>
 
-<h4 class="my-3 pl-3">Comments</h4>
 
 <div class="container">
+    <h4 class="my-3">Comments</h4>
     <div id="comments">
         @foreach (var comment in Model.Bug.Comments)
         {
@@ -60,7 +60,7 @@
             </div>
         }
     </div>
-    
+
     <div id="newCommentCard" class="card border-secondary mb-2 ml-3" style="max-width: 30rem">
         <div class="card-header">New Comment</div>
         <div class="card-body">
