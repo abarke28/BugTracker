@@ -32,16 +32,16 @@
 
         <div class="form-group">
             <label asp-for="Bug.Status"></label>
-            <select asp-for="Bug.Status" asp-items="Model.CoreStatuses" class="form-control"></select>
+            <select asp-for="Bug.Status" asp-items="Model.CoreStatuses" id="BugStatus" class="form-control"></select>
         </div>
 
         <div class="form-check form-check-inline">
-            <input asp-for="@Model.Assigned" type="checkbox" class="form-check-input" />
+            <input asp-for="@Model.Assigned" type="checkbox" id="Assigned" class="form-check-input" />
             <label asp-for="@Model.Assigned" class="form-check-label"></label>
         </div>
 
         <div class="form-check form-check-inline">
-            <input asp-for="@Model.Reopened" type="checkbox" class="form-check-input" />
+            <input asp-for="@Model.Reopened" type="checkbox" id="Reopened" class="form-check-input" />
             <label asp-for="@Model.Reopened" class="form-check-label"></label>
         </div>
 
@@ -59,9 +59,11 @@
 
         <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
         <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
+        <input asp-for="@Model.ProjectName" value="@Model.ProjectName" type="hidden" />
         <input asp-for="Bug.DateSubmitted" value="@Model.Bug.DateSubmitted" type="hidden" />
         <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" />
-        <input asp-for="@Model.ProjectName" value="@Model.ProjectName" type="hidden" />
+        <input asp-for="Bug.ResolutionCommit" value="@Model.Bug.ResolutionCommit" />
+        <input asp-for="Bug.ResolutionDescription" value="@Model.Bug.ResolutionDescription" />
 
         <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
     </form>
@@ -70,7 +72,13 @@
 @section Scripts
 {
     <script>
-        $(document).ready();
+        $(document).ready(function () {
+            $("#BugStatus").change(function () {
+                var status = $("#BugStatus");
+                if (status.val() == "Closed") {
 
+                }
+            });
+        });
     </script>
 }
