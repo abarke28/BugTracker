@@ -62,8 +62,8 @@
         <input asp-for="@Model.ProjectName" value="@Model.ProjectName" type="hidden" />
         <input asp-for="Bug.DateSubmitted" value="@Model.Bug.DateSubmitted" type="hidden" />
         <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" />
-        <input asp-for="Bug.ResolutionCommit" value="@Model.Bug.ResolutionCommit" />
-        <input asp-for="Bug.ResolutionDescription" value="@Model.Bug.ResolutionDescription" />
+        <input asp-for="Bug.ResolutionCommit" value="@Model.Bug.ResolutionCommit" type="hidden" />
+        <input asp-for="Bug.ResolutionDescription" value="@Model.Bug.ResolutionDescription" type="hidden" />
 
         <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
     </form>
@@ -75,8 +75,9 @@
         $(document).ready(function () {
             $("#BugStatus").change(function () {
                 var status = $("#BugStatus");
-                if (status.val() == "Closed") {
-
+                if ((status.val() == "Closed")||(status.val() == "Resolved")) {
+                    $("#Assigned").prop("checked", false);
+                    $("#Reopened").prop("checked", false);
                 }
             });
         });
