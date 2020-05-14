@@ -25,19 +25,24 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="Bug.Description"></label>
+            <textarea asp-for="Bug.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Bug.Description"></span>
+        </div>
+
+        <div class="form-group">
             <label asp-for="Bug.Status"></label>
             <select asp-for="Bug.Status" asp-items="Model.CoreStatuses" class="form-control"></select>
         </div>
 
-        <div class="form-check">
+        <div class="form-check form-check-inline">
             <input asp-for="@Model.Assigned" type="checkbox" class="form-check-input" />
             <label asp-for="@Model.Assigned" class="form-check-label"></label>
         </div>
 
-        <div class="form-group">
-            <label asp-for="Bug.Description"></label>
-            <textarea asp-for="Bug.Description" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="Bug.Description"></span>
+        <div class="form-check form-check-inline">
+            <input asp-for="@Model.Reopened" type="checkbox" class="form-check-input" />
+            <label asp-for="@Model.Reopened" class="form-check-label"></label>
         </div>
 
         <div class="form-group">
@@ -51,11 +56,6 @@
             <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
             <span asp-validation-for="Bug.DateTargeted"></span>
         </div>
-
-        @*<div class="form-group">
-                <label asp-for="Bug.Status"></label>
-                <select asp-for="Bug.Status" asp-items="Model.Statuses"></select>
-            </div>*@
 
         <input asp-for="Bug.Id" value="@Model.Bug.Id" type="hidden" />
         <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />

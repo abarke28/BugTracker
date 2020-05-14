@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+using Microsoft.Extensions.Logging;
 
 namespace BugTracker.Controllers
 {
@@ -21,10 +22,12 @@ namespace BugTracker.Controllers
     public class BugsController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly ILogger _logger;
 
-        public BugsController(IHttpClientFactory clientFactory)
+        public BugsController(IHttpClientFactory clientFactory, ILogger logger)
         {
             _clientFactory = clientFactory;
+            _logger = logger;
         }
 
         [HttpGet("projects/detail/{projectId}/{id}")]   
@@ -92,6 +95,33 @@ namespace BugTracker.Controllers
             vm.ProjectName = JsonConvert.DeserializeObject<Project>(apiResponse).Title;
 
             return View("EditBugForm", vm);
+        }
+
+        [HttpPost("bugs/save")]
+        public async Task<IActionResult> Save(EditBugVm vm)
+        {
+            var bug = vm.Bug;
+
+            if (vm.Assigned) bug.Status |= BugStatus.Assigned;
+            if (vm.Reopened) bug.Status |= BugStatus.Reopened;
+
+            var http = _clientFactory.CreateClient("bugs");
+            var apiResponse = await http.PutAsync(bug.Id.ToString(), bug);
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                _logger.LogInformation("Failed to update bug with id {0}", bug.Id);
+            }
+
+            var detailVm = new BugDetailVm
+            {
+                Bug = bug,
+                ProjectId = bug.ProjectId,
+                ProjectName = vm.ProjectName,
+                UserName = User.FindFirst(ClaimTypes.Name).Value.Split("@")?[0] ?? "guest"
+            };
+
+            return View("Detail", detailVm);
         }
     }
 }
