@@ -22,9 +22,9 @@ namespace BugTracker.Controllers
     public class BugsController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly ILogger _logger;
+        private readonly ILogger<BugsController> _logger;
 
-        public BugsController(IHttpClientFactory clientFactory, ILogger logger)
+        public BugsController(IHttpClientFactory clientFactory, ILogger<BugsController> logger)
         {
             _clientFactory = clientFactory;
             _logger = logger;
@@ -89,6 +89,8 @@ namespace BugTracker.Controllers
             var http = _clientFactory.CreateClient("bugs");
             var apiResponse = await http.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
             vm.Bug = JsonConvert.DeserializeObject<Bug>(apiResponse);
+            vm.Assigned = ((BugStatus.Assigned & vm.Bug.Status) == BugStatus.Assigned);
+            vm.Reopened = ((BugStatus.Reopened & vm.Bug.Status) == BugStatus.Reopened);
 
             http = _clientFactory.CreateClient("projects");
             apiResponse = await http.GetAsync(vm.Bug.ProjectId.ToString()).Result.Content.ReadAsStringAsync();
@@ -112,6 +114,10 @@ namespace BugTracker.Controllers
             {
                 _logger.LogInformation("Failed to update bug with id {0}", bug.Id);
             }
+
+            // Fetch associated comments from API
+            var apiResponseStr = await http.GetAsync(bug.Id.ToString()).Result.Content.ReadAsStringAsync();
+            bug = JsonConvert.DeserializeObject<Bug>(apiResponseStr);
 
             var detailVm = new BugDetailVm
             {
