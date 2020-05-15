@@ -26,13 +26,25 @@
 
         <div class="form-group">
             <label asp-for="Bug.Description"></label>
-            <textarea asp-for="Bug.Description" class="form-control" rows="3"></textarea>
+            <textarea asp-for="Bug.Description" rows="3" class="form-control" ></textarea>
             <span asp-validation-for="Bug.Description"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Bug.Status"></label>
             <select asp-for="Bug.Status" asp-items="Model.CoreStatuses" id="BugStatus" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Bug.ResolutionCommit"></label>
+            <input asp-for="Bug.ResolutionCommit" class="form-control" />
+            <span asp-validation-for="Bug.ResolutionCommit"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Bug.ResolutionDescription"></label>
+            <textarea asp-for="Bug.ResolutionDescription" rows="3" class="form-control" />
+            <span asp-validation-for="Bug.ResolutionDescription"></span>
         </div>
 
         <div class="form-check form-check-inline">
@@ -61,12 +73,12 @@
         <input asp-for="Bug.ProjectId" value="@Model.Bug.ProjectId" type="hidden" />
         <input asp-for="@Model.ProjectName" value="@Model.ProjectName" type="hidden" />
         <input asp-for="Bug.DateSubmitted" value="@Model.Bug.DateSubmitted" type="hidden" />
-        <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" />
-        <input asp-for="Bug.ResolutionCommit" value="@Model.Bug.ResolutionCommit" type="hidden" />
-        <input asp-for="Bug.ResolutionDescription" value="@Model.Bug.ResolutionDescription" type="hidden" />
+        <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" id="dateResolved" />
+        <input asp-for="Bug.ResolutionCommit" value="@Model.Bug.ResolutionCommit" type="hidden" id="resolutionCommit" />
+        <input asp-for="Bug.ResolutionDescription" value="@Model.Bug.ResolutionDescription" type="hidden" id="resolutionDescription" />
 
-        <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
-        <a asp-controller="Bugs" asp-action="Detail" asp-route-id="@Model.Bug.Id" asp-route-projectId="@Model.Bug.ProjectId" class="btn btn-primary">Cancel</a>
+        <button id="saveButton" type="submit" class="btn btn-primary m-3">Save</button>
+        <a asp-controller="Bugs" asp-action="Detail" asp-route-id="@Model.Bug.Id" asp-route-projectId="@Model.Bug.ProjectId" class="btn btn-primary m-3">Cancel</a>
     </form>
 </div>
 
@@ -74,14 +86,15 @@
 {
     <script>
         $(document).ready(function () {
+            var origStatus = $("BugStatus").val();
             $("#BugStatus").change(function () {
-                var status = $("#BugStatus");
-                if ((status.val() == "Closed")||(status.val() == "Resolved")) {
+                var newStatus = $("#BugStatus");
+                if ((newStatus.val() == "Closed")||(newStatus.val() == "Resolved")) {
                     $("#Assigned").prop("checked", false);
                     $("#Reopened").prop("checked", false);
                 }
-                if (status.val() == "Open") {
-                    alert("Changed to Open");
+                if (newStatus.val() == "Open") {
+                    $("Reopened").prop("checked", true);
                 }
             });
         });
