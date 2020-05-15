@@ -57,13 +57,13 @@
             <label asp-for="@Model.Reopened" class="form-check-label"></label>
         </div>
 
-        <div class="form-group">
+        <div id="assignedDiv" class="form-group">
             <label asp-for="Bug.Assignee"></label>
             <input asp-for="Bug.Assignee" class="form-control" />
             <span asp-validation-for="Bug.Description"></span>
         </div>
 
-        <div class="form-group col-5">
+        <div id="targetedDiv" class="form-group col-5">
             <label asp-for="Bug.DateTargeted"></label>
             <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
             <span asp-validation-for="Bug.DateTargeted"></span>
@@ -88,6 +88,16 @@
                 $("#resolutionCommitDiv").hide();
                 $("#resolutionDescriptionDiv").hide();
             }
+
+            if ($("#BugStatus").val() == "Closed") {
+                $("#assignedDiv").hide();
+                $("#targetedDiv").hide();
+            }
+
+            if ($("#BugStatus").val() == "Resolved") {
+                $("#assignedDiv").hide();
+                $("#targetedDiv").hide();
+            }
             
             $("#BugStatus").change(function () {
                 var newStatus = $("#BugStatus");
@@ -95,6 +105,9 @@
                     $("#Assigned").prop("checked", false);
                     $("#Reopened").prop("checked", false);
                     $("#dateResolved").val(Date.now());
+
+                    $("#assignedDiv").hide();
+                    $("#targetedDiv").hide();
 
                     $("#resolutionCommitDiv").show();
                     $("#resolutionDescriptionDiv").show();
@@ -104,6 +117,9 @@
                     $("Reopened").prop("checked", true);
                     $("#resolutionCommitDiv").hide();
                     $("#resolutionDescriptionDiv").hide();
+
+                    $("#assignedDiv").show();
+                    $("#targetedDiv").show();
                 }
             });
         });
