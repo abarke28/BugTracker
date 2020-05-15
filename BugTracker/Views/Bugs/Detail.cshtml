@@ -31,11 +31,11 @@
                 }
             </p>
         }
-        @if (Model.Bug.Status == BugStatus.Closed)
+        @if (((Model.Bug.Status & BugStatus.Closed) == BugStatus.Closed)||((Model.Bug.Status & BugStatus.Resolved) == BugStatus.Resolved))
         {
             <p class="card-text">
                 <span>Closed: @Model.Bug.DateResolved</span>
-                <span class="px-3">Resolution PR/Commit:  @Model.Bug.ResolutionCommit</span>
+                <span class="px-3">PR/Commit:  @Model.Bug.ResolutionCommit</span>
             </p>
             @if (!String.IsNullOrEmpty(Model.Bug.ResolutionDescription))
             {

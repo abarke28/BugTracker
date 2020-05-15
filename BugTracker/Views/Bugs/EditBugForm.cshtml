@@ -63,7 +63,7 @@
             <span asp-validation-for="Bug.Description"></span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-5">
             <label asp-for="Bug.DateTargeted"></label>
             <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
             <span asp-validation-for="Bug.DateTargeted"></span>
@@ -84,9 +84,7 @@
 {
     <script>
         $(document).ready(function () {
-            var origStatus = $("BugStatus").val();
-
-            if (origStatus == "Open") {
+            if ($("#BugStatus").val() == "Open") {
                 $("#resolutionCommitDiv").hide();
                 $("#resolutionDescriptionDiv").hide();
             }
