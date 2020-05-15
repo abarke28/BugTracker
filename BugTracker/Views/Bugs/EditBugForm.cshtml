@@ -66,6 +66,7 @@
         <input asp-for="Bug.ResolutionDescription" value="@Model.Bug.ResolutionDescription" type="hidden" />
 
         <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
+        <a asp-controller="Bugs" asp-action="Detail" asp-route-id="@Model.Bug.Id" asp-route-projectId="@Model.Bug.ProjectId" class="btn btn-primary">Cancel</a>
     </form>
 </div>
 
@@ -78,6 +79,9 @@
                 if ((status.val() == "Closed")||(status.val() == "Resolved")) {
                     $("#Assigned").prop("checked", false);
                     $("#Reopened").prop("checked", false);
+                }
+                if (status.val() == "Open") {
+                    alert("Changed to Open");
                 }
             });
         });
