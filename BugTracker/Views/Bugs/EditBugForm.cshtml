@@ -85,9 +85,12 @@
     <script>
         $(document).ready(function () {
             var origStatus = $("BugStatus").val();
-            $("#resolutionCommitDiv").hide();
-            $("#resolutionDescriptionDiv").hide();
 
+            if (origStatus == "Open") {
+                $("#resolutionCommitDiv").hide();
+                $("#resolutionDescriptionDiv").hide();
+            }
+            
             $("#BugStatus").change(function () {
                 var newStatus = $("#BugStatus");
                 if ((newStatus.val() == "Closed")||(newStatus.val() == "Resolved")) {
