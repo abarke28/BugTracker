@@ -82,6 +82,7 @@
 
 @section Scripts
 {
+    <script src="~/lib/bootbox/dist/bootbox.js"></script>
     <script>
         $(document).ready(function () {
             var origStatus = $("#BugStatus").val();
@@ -108,37 +109,55 @@
             $("#BugStatus").change(function () {
                 var newStatus = $("#BugStatus");
                 if ((newStatus.val() == "Closed") || (newStatus.val() == "Resolved")) {
-                    $("#Assigned").prop("checked", false);
-                    $("#assignee").attr('value', '');
-                    $("#Reopened").prop("checked", false);
+                    bootbox.confirm("Close Issue?", function (result) {
+                        if (result) {
+                            $("#Assigned").prop("checked", false);
+                            $("#assignee").attr('value', '');
+                            $("#Reopened").prop("checked", false);
 
-                    var now = Date.now();
-                    var date = new Date(now);
-                    var offset = date.getTimezoneOffset();
-                    date = new Date(date.getTime() + (offset * 60 * 1000));
-                    date = date.toISOString().split('T')[0];
-                    $("#dateResolved").val(date);
+                            var now = Date.now();
+                            var date = new Date(now);
+                            var offset = date.getTimezoneOffset();
+                            date = new Date(date.getTime() + (offset * 60 * 1000));
+                            date = date.toISOString().split('T')[0];
+                            $("#dateResolved").val(date);
 
-                    $("#assignedDiv").hide();
-                    $("#targetedDiv").hide();
-                    $("#assignedCheckDiv").hide();
-                    $("#reopenedCheckDiv").hide();
+                            $("#assignedDiv").hide();
+                            $("#targetedDiv").hide();
+                            $("#assignedCheckDiv").hide();
+                            $("#reopenedCheckDiv").hide();
 
-                    $("#resolutionCommitDiv").show();
-                    $("#resolutionDescriptionDiv").show();
+                            $("#resolutionCommitDiv").show();
+                            $("#resolutionDescriptionDiv").show();
+                            origStatus = $("#BugStatus").val();
+                        }
+
+                        else {
+                            $("#BugStatus").val(origStatus);
+                        }
+                    });
 
                 }
                 if (newStatus.val() == "Open") {
-                    $("Reopened").prop("checked", true);
-                    $("#resolutionCommitDiv").hide();
-                    $("#resolutionDescriptionDiv").hide();
+                    bootbox.confirm("Reopen Issue?", function (result) {
+                        if (result) {
+                            $("Reopened").prop("checked", true);
+                            $("#resolutionCommitDiv").hide();
+                            $("#resolutionDescriptionDiv").hide();
 
-                    $("#assignedDiv").show();
-                    $("#targetedDiv").show();
-                    $("#assignedCheckDiv").show();
-                    $("#reopenedCheckDiv").show();
-                    $("#Reopened").prop("checked", true);
-                    $("#assignee").attr('value', '');
+                            $("#assignedDiv").show();
+                            $("#targetedDiv").show();
+                            $("#assignedCheckDiv").show();
+                            $("#reopenedCheckDiv").show();
+                            $("#Reopened").prop("checked", true);
+                            $("#assignee").attr('value', '');
+                            origStatus = $("#BugStatus").val();
+                        }
+                        else {
+                            $("#BugStatus").val(origStatus);
+                        }
+                    });
+
                 }
             });
         });
