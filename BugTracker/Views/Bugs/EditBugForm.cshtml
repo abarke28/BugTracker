@@ -63,7 +63,7 @@
             <span asp-validation-for="Bug.Description"></span>
         </div>
 
-        <div id="targetedDiv" class="form-group col-5">
+        <div id="targetedDiv" class="form-group">
             <label asp-for="Bug.DateTargeted"></label>
             <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
             <span asp-validation-for="Bug.DateTargeted"></span>
@@ -104,7 +104,7 @@
                 if ((newStatus.val() == "Closed")||(newStatus.val() == "Resolved")) {
                     $("#Assigned").prop("checked", false);
                     $("#Reopened").prop("checked", false);
-                    $("#dateResolved").val(Date.now());
+                    $("#dateResolved").val(new Date());
 
                     $("#assignedDiv").hide();
                     $("#targetedDiv").hide();
