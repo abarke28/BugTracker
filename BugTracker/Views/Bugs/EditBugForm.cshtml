@@ -104,12 +104,12 @@
                 $("#assignedCheckDiv").hide();
                 $("#reopenedCheckDiv").hide();
             }
-            
+
             $("#BugStatus").change(function () {
                 var newStatus = $("#BugStatus");
-                if ((newStatus.val() == "Closed")||(newStatus.val() == "Resolved")) {
+                if ((newStatus.val() == "Closed") || (newStatus.val() == "Resolved")) {
                     $("#Assigned").prop("checked", false);
-                    $("#assignee").val("");
+                    $("#assignee").attr('value', '');
                     $("#Reopened").prop("checked", false);
 
                     var now = Date.now();
@@ -138,6 +138,7 @@
                     $("#assignedCheckDiv").show();
                     $("#reopenedCheckDiv").show();
                     $("#Reopened").prop("checked", true);
+                    $("#assignee").attr('value', '');
                 }
             });
         });

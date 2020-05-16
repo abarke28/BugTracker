@@ -117,3 +117,13 @@ body {
 .col-width-10 {
     width: 10%;
 }
+
+.form-control:focus {
+    color: #7b8a8b;
+    background-color: #fff;
+    border-color: #597ea2;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(39, 128, 227, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(39, 128, 227, 0.25);
+}
+
