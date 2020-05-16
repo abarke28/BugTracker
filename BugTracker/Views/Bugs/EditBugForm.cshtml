@@ -47,12 +47,12 @@
             <span asp-validation-for="Bug.ResolutionDescription"></span>
         </div>
 
-        <div class="form-check form-check-inline">
+        <div id="assignedCheckDiv" class="form-check form-check-inline">
             <input asp-for="@Model.Assigned" type="checkbox" id="Assigned" class="form-check-input" />
             <label asp-for="@Model.Assigned" class="form-check-label"></label>
         </div>
 
-        <div class="form-check form-check-inline">
+        <div id="reopenedCheckDiv" class="form-check form-check-inline">
             <input asp-for="@Model.Reopened" type="checkbox" id="Reopened" class="form-check-input" />
             <label asp-for="@Model.Reopened" class="form-check-label"></label>
         </div>
@@ -75,6 +75,7 @@
         <input asp-for="Bug.DateSubmitted" value="@Model.Bug.DateSubmitted" type="hidden" />
         <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" id="dateResolved" />
 
+        <br />
         <button id="saveButton" type="submit" class="btn btn-primary m-3">Save</button>
         <a asp-controller="Bugs" asp-action="Detail" asp-route-id="@Model.Bug.Id" asp-route-projectId="@Model.Bug.ProjectId" class="btn btn-primary m-3">Cancel</a>
     </form>
@@ -92,6 +93,8 @@
             if ($("#BugStatus").val() == "Closed") {
                 $("#assignedDiv").hide();
                 $("#targetedDiv").hide();
+                $("#assignedCheckDiv").hide();
+                $("#reopenedCheckDiv").hide();
             }
 
             if ($("#BugStatus").val() == "Resolved") {
@@ -108,6 +111,8 @@
 
                     $("#assignedDiv").hide();
                     $("#targetedDiv").hide();
+                    $("#assignedCheckDiv").hide();
+                    $("#reopenedCheckDiv").hide();
 
                     $("#resolutionCommitDiv").show();
                     $("#resolutionDescriptionDiv").show();
