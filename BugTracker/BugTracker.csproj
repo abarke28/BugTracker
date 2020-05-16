@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-BugTracker-7D040942-81C4-44E1-B948-25E4BD9F4D08</UserSecretsId>
+    <ApplicationIcon>wwwroot\IjTennis.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +12,7 @@
 
   <ItemGroup>
     <None Include="bundleconfig.json" />
+    <None Include="wwwroot\IjTennis.ico" />
   </ItemGroup>
 
 

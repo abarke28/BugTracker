@@ -58,8 +58,8 @@
         </div>
 
         <div id="assignedDiv" class="form-group">
-            <label asp-for="Bug.Assignee" id="assignee"></label>
-            <input asp-for="Bug.Assignee" class="form-control" />
+            <label asp-for="Bug.Assignee"></label>
+            <input asp-for="Bug.Assignee" id="assignedTo" class="form-control" />
             <span asp-validation-for="Bug.Description"></span>
         </div>
 
@@ -112,7 +112,7 @@
                     bootbox.confirm("Close Issue?", function (result) {
                         if (result) {
                             $("#Assigned").prop("checked", false);
-                            $("#assignee").attr('value', '');
+                            $("assignedTo").val('');
                             $("#Reopened").prop("checked", false);
 
                             var now = Date.now();
@@ -150,7 +150,7 @@
                             $("#assignedCheckDiv").show();
                             $("#reopenedCheckDiv").show();
                             $("#Reopened").prop("checked", true);
-                            $("#assignee").attr('value', '');
+                            $("#assignedTo").val('');
                             origStatus = $("#BugStatus").val();
                         }
                         else {
