@@ -21,7 +21,7 @@
         <p class="card-subtitle text-muted">@Model.Bug.DateSubmitted.ToShortDateString()</p>
         <h2 class="card-title">@Model.Bug.Title</h2>
         <p class="card-text">@Model.Bug.Description</p>
-        @if (Model.Bug.Status != BugStatus.Closed)
+        @if ((Model.Bug.Status & BugStatus.Open) == BugStatus.Open)
         {
             <p class="card-text">
                 <span class="px-3 text-muted">Targeted Completion:  @Model.Bug.DateTargeted.ToShortDateString()</span>
@@ -34,7 +34,7 @@
         @if (((Model.Bug.Status & BugStatus.Closed) == BugStatus.Closed)||((Model.Bug.Status & BugStatus.Resolved) == BugStatus.Resolved))
         {
             <p class="card-text">
-                <span>Closed: @Model.Bug.DateResolved</span>
+                <span>Closed: @Model.Bug.DateResolved.ToShortDateString()</span>
                 <span class="px-3">PR/Commit:  @Model.Bug.ResolutionCommit</span>
             </p>
             @if (!String.IsNullOrEmpty(Model.Bug.ResolutionDescription))

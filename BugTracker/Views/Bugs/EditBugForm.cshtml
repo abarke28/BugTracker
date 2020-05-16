@@ -58,7 +58,7 @@
         </div>
 
         <div id="assignedDiv" class="form-group">
-            <label asp-for="Bug.Assignee"></label>
+            <label asp-for="Bug.Assignee" id="assignee"></label>
             <input asp-for="Bug.Assignee" class="form-control" />
             <span asp-validation-for="Bug.Description"></span>
         </div>
@@ -75,7 +75,6 @@
         <input asp-for="Bug.DateSubmitted" value="@Model.Bug.DateSubmitted" type="hidden" />
         <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" id="dateResolved" />
 
-        <br />
         <button id="saveButton" type="submit" class="btn btn-primary m-3">Save</button>
         <a asp-controller="Bugs" asp-action="Detail" asp-route-id="@Model.Bug.Id" asp-route-projectId="@Model.Bug.ProjectId" class="btn btn-primary m-3">Cancel</a>
     </form>
@@ -85,6 +84,8 @@
 {
     <script>
         $(document).ready(function () {
+            var origStatus = $("#BugStatus").val();
+
             if ($("#BugStatus").val() == "Open") {
                 $("#resolutionCommitDiv").hide();
                 $("#resolutionDescriptionDiv").hide();
@@ -100,14 +101,23 @@
             if ($("#BugStatus").val() == "Resolved") {
                 $("#assignedDiv").hide();
                 $("#targetedDiv").hide();
+                $("#assignedCheckDiv").hide();
+                $("#reopenedCheckDiv").hide();
             }
             
             $("#BugStatus").change(function () {
                 var newStatus = $("#BugStatus");
                 if ((newStatus.val() == "Closed")||(newStatus.val() == "Resolved")) {
                     $("#Assigned").prop("checked", false);
+                    $("#assignee").val("");
                     $("#Reopened").prop("checked", false);
-                    $("#dateResolved").val(new Date());
+
+                    var now = Date.now();
+                    var date = new Date(now);
+                    var offset = date.getTimezoneOffset();
+                    date = new Date(date.getTime() + (offset * 60 * 1000));
+                    date = date.toISOString().split('T')[0];
+                    $("#dateResolved").val(date);
 
                     $("#assignedDiv").hide();
                     $("#targetedDiv").hide();
@@ -125,6 +135,8 @@
 
                     $("#assignedDiv").show();
                     $("#targetedDiv").show();
+                    $("#assignedCheckDiv").show();
+                    $("#reopenedCheckDiv").show();
                 }
             });
         });
