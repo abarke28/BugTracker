@@ -75,8 +75,8 @@
         <input asp-for="Bug.DateSubmitted" value="@Model.Bug.DateSubmitted" type="hidden" />
         <input asp-for="Bug.DateResolved" value="@Model.Bug.DateResolved" type="hidden" id="dateResolved" />
 
-        <button id="saveButton" type="submit" class="btn btn-primary m-3">Save</button>
-        <a asp-controller="Bugs" asp-action="Detail" asp-route-id="@Model.Bug.Id" asp-route-projectId="@Model.Bug.ProjectId" class="btn btn-primary m-3">Cancel</a>
+        <button id="saveButton" type="submit" class="btn btn-primary my-3 mx-1">Save</button>
+        <a asp-controller="Bugs" asp-action="Detail" asp-route-id="@Model.Bug.Id" asp-route-projectId="@Model.Bug.ProjectId" class="btn btn-primary my-3 mx-1">Cancel</a>
     </form>
 </div>
 
