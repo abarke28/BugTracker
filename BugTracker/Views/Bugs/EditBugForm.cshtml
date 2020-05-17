@@ -65,7 +65,7 @@
 
         <div id="targetedDiv" class="form-group">
             <label asp-for="Bug.DateTargeted"></label>
-            <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" class="form-control" />
+            <input type="date" asp-for="Bug.DateTargeted" value="@datePickerDefault" id="targetedDate" class="form-control" />
             <span asp-validation-for="Bug.DateTargeted"></span>
         </div>
 
@@ -152,6 +152,11 @@
                             $("#Reopened").prop("checked", true);
                             $("#assignedTo").val('');
                             origStatus = $("#BugStatus").val();
+
+                            var now = Date.now();
+                            var date = new Date(now);
+                            date.setDate(date.getDate() + 14);
+                            $("#targetedDate").val(date);
                         }
                         else {
                             $("#BugStatus").val(origStatus);
