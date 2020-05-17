@@ -155,7 +155,8 @@
 
                             var now = Date.now();
                             var date = new Date(now);
-                            date.setDate(date.getDate() + 14);
+                            date = date.addDays(14);
+                            date = date.toISOString().split('T')[0];
                             $("#targetedDate").val(date);
                         }
                         else {
