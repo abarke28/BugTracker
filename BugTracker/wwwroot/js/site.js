@@ -8,3 +8,8 @@ Date.prototype.addDays = function (days) {
     date.setDate(date.getDate() + days);
     return date;
 }
+
+Date.prototype.toShortDateString = function (){
+    var date = new Date(this.valueOf());
+    date.toISOString().split('T')[0];
+}
