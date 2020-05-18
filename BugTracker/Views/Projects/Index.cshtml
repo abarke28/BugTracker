@@ -25,10 +25,16 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
+                Total Bugs
+            </th>
+            <th>
                 Open Bugs
             </th>
             <th>
-                Total Bugs
+                Resolved Bugs
+            </th>
+            <th>
+                Closed Bugs
             </th>
         </tr>
     </thead>
@@ -42,10 +48,16 @@
                 <a asp-action="Detail" asp-route-id="@item.Id">@item.Title</a>
             </td>
             <td>
-                @item.Bugs.Where(bug=>((bug.Status&BugStatus.Open)==BugStatus.Open)).Count()
+                @item.Bugs.Count
             </td>
             <td>
-                @item.Bugs.Count
+                @item.Bugs.Where(bug => ((bug.Status & BugStatus.Open) == BugStatus.Open)).Count()
+            </td>
+            <td>
+                @item.Bugs.Where(bug => ((bug.Status & BugStatus.Resolved) == BugStatus.Resolved)).Count()
+            </td>
+            <td>
+                @item.Bugs.Where(bug => ((bug.Status & BugStatus.Closed) == BugStatus.Closed)).Count()
             </td>
         </tr>
 }
