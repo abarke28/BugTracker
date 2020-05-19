@@ -28,14 +28,12 @@ namespace BugTracker.Controllers.Api
             _mapper = mapper;
         }
 
-        // GET: api/Bugs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bug>>> GetBug()
         {
             return await _context.Bugs.ToListAsync();
         }
 
-        // GET: api/Bugs/id
         [HttpGet("{id}")]
         public async Task<ActionResult<Bug>> GetBug(int id)
         {
@@ -49,7 +47,6 @@ namespace BugTracker.Controllers.Api
             return bug;
         }
 
-        // PUT: api/Bugs/id
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBug(int id, Bug bug)
         {
@@ -79,7 +76,6 @@ namespace BugTracker.Controllers.Api
             return NoContent();
         }
 
-        // POST: api/Bugs
         [HttpPost]
         public async Task<ActionResult<Bug>> PostBug(BugDto bugDto)
         {
@@ -94,7 +90,6 @@ namespace BugTracker.Controllers.Api
             return Created(Request.Path.ToString() + "/" + bug.Id, bug);
         }
 
-        // DELETE: api/Bugs/id
         [HttpDelete("{id}")]
         public async Task<ActionResult<Bug>> DeleteBug(int id)
         {
