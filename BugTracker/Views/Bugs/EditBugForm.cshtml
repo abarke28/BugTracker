@@ -57,7 +57,7 @@
             <label asp-for="@Model.Reopened" class="form-check-label"></label>
         </div>
 
-        <div id="assignedDiv" class="form-group">
+        <div id="assignedDiv" class="form-group mt-3">
             <label asp-for="Bug.Assignee"></label>
             <input asp-for="Bug.Assignee" id="assignedTo" class="form-control" />
             <span asp-validation-for="Bug.Description"></span>
@@ -109,10 +109,10 @@
             $("#assignedTo").keyup(function () {
                 var assignee = $("#assignedTo").val();
                 var assigned = $("#Assigned").is(":checked");
-                if ((assignee.length > 0) && assigned) {
+                if (assignee.length > 0) {
                     $("#Assigned").prop("checked", true);
                 }
-                if (assignee.length == 0) {
+                if ((assignee.length == 0) && assigned) {
                     $("#Assigned").prop("checked", false);
                 }
             });
