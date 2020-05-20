@@ -54,7 +54,10 @@
         @foreach (var comment in Model.Bug.Comments)
         {
             <div class="card border-secondary mb-4 ml-3" style="max-width: 30rem;">
-                <div class="card-header text-muted">@comment.TimeStamp</div>
+                <div class="card-header">
+                    <span class="text-muted">@comment.TimeStamp</span>
+                    <span class="float-right"><a></a></span>
+                </div>
                 <div class="card-body">
                     <b class="card-title">@comment.SubmittedBy</b>
                     <p class="card-text">@comment.Text</p>
@@ -124,6 +127,10 @@
                         }
                     });
                 }
+            });
+
+            $("#deleteButton").on("click", function () {
+                var card = this;
             });
         });
     </script>
