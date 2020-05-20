@@ -127,3 +127,15 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(39, 128, 227, 0.25);
 }
 
+img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.delete-comment-icon {
+    height: 18px;
+}
+
+.edit-bug-detail {
+    height: 18px;
+}
