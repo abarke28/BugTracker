@@ -106,6 +106,17 @@
                 $("#reopenedCheckDiv").hide();
             }
 
+            $("#assignedTo").keyup(function () {
+                var assignee = $("#assignedTo").val();
+                var assigned = $("#Assigned").is(":checked");
+                if ((assignee.length > 0) && assigned) {
+                    $("#Assigned").prop("checked", true);
+                }
+                if (assignee.length == 0) {
+                    $("#Assigned").prop("checked", false);
+                }
+            });
+
             $("#BugStatus").change(function () {
                 var newStatus = $("#BugStatus");
                 if ((newStatus.val() == "Closed") || (newStatus.val() == "Resolved")) {

@@ -40,11 +40,12 @@ namespace BugTracker.utils
             return http.PutAsync(requestUri, contentStr);
         }
 
-        /// <summary>
-        /// Extension: Enumerates an Enum to a IEnumerable
-        /// </summary>
         public static IEnumerable<T> Enumerate<T>(this T sourceEnum) where T : struct, IConvertible
         {
+            /// <summary>
+            /// Extension: Enumerates an Enum to a IEnumerable
+            /// </summary>
+
             if (!typeof(T).IsEnum) throw new ArgumentException(String.Format("Method not valid for {0}, only valid for Enums",sourceEnum));
 
             return Enum.GetValues(typeof(T)).Cast<T>();
