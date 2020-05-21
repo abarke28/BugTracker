@@ -116,7 +116,14 @@
 
                                 var newCommentHtml =
                                     "<div class='card border-secondary mb-4 ml-3' style='max-width: 30rem'>"
-                                    + "<div class='card-header text-muted'>" + date + "</div>"
+                                    + "<div class='card-header py-0 delete-icon-container'>"
+                                    + "<span class='text-muted mt-2'>" + date + "</span>"
+                                    + "<span class='float right'>"
+                                    + "<button id='deleteButton' data-comment-id='" + "id" + "' class='js-delete m-0 btn btn-link'>"
+                                    + "<img src='~/lib/images/delete-bin-32.png' class='delete-comment-icon' />"
+                                    + "</button>"
+                                    + "</span>"
+                                    + "</div>"
                                     + "<div class='card-body'>"
                                     + "<b class='card-title'>" + vm.submittedBy + "</b>"
                                     + "<p class='card-text'>" + $.trim($("#newComment").val()) + "</p>"
