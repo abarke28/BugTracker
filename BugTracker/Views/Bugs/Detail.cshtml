@@ -56,7 +56,9 @@
             <div class="card border-secondary mb-4 ml-3" style="max-width: 30rem;">
                 <div class="card-header">
                     <span class="text-muted">@comment.TimeStamp</span>
-                    <span class="float-right"><a href="#"><img src="~/lib/images/delete-bin-32.png" id="deleteButton" class="delete-comment-icon" /></a></span>
+                    <span class="float-right"><button id="deleteButton" data-comment-id="@comment.Id" class="btn-link">
+                        <img src="~/lib/images/delete-bin-32.png" class="delete-comment-icon" />
+                    </button></span>
                 </div>
                 <div class="card-body">
                     <b class="card-title">@comment.SubmittedBy</b>
@@ -130,7 +132,12 @@
             });
 
             $("#deleteButton").on("click", function () {
-                var card = this;
+                var button = this;
+                bootbox.confirm("Are you sure?", function (result) {
+                    if (result) {
+
+                    }
+                });
             });
         });
     </script>
