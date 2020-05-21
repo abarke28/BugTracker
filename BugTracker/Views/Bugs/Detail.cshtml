@@ -135,7 +135,15 @@
                 var button = this;
                 bootbox.confirm("Are you sure?", function (result) {
                     if (result) {
+                        $.ajax({
+                            url: "/api/comments/" + button.attr("data-comment-id"),
+                            method: "DELETE",
 
+                        }).done(function () {
+                            bootbox.alert("Comment Deleted");
+                        }).fail(function () {
+                            bootbox.alert("Comment Deletion Failed");
+                        });
                     }
                 });
             });

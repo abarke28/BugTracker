@@ -27,14 +27,12 @@ namespace BugTracker.Controllers.Api
             _mapper = mapper;
         }
 
-        // GET: api/Comments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComment()
         {
             return await _context.Comments.ToListAsync();
         }
 
-        // GET: api/Comments/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
@@ -48,7 +46,6 @@ namespace BugTracker.Controllers.Api
             return comment;
         }
 
-        // PUT: api/Comments/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(int id, Comment comment)
         {
@@ -78,7 +75,6 @@ namespace BugTracker.Controllers.Api
             return NoContent();
         }
 
-        // POST: api/Comments
         [HttpPost]
         public async Task<ActionResult<Comment>> PostComment(CommentDto commentDto)
         {
@@ -93,7 +89,6 @@ namespace BugTracker.Controllers.Api
             return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
-        // DELETE: api/Comments/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<Comment>> DeleteComment(int id)
         {
