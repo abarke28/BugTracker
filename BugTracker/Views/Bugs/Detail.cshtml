@@ -54,11 +54,13 @@
         @foreach (var comment in Model.Bug.Comments)
         {
             <div class="card border-secondary mb-4 ml-3" style="max-width: 30rem;">
-                <div class="card-header">
-                    <span class="text-muted">@comment.TimeStamp</span>
-                    <span class="float-right"><button id="deleteButton" data-comment-id="@comment.Id" class="btn-link">
-                        <img src="~/lib/images/delete-bin-32.png" class="delete-comment-icon" />
-                    </button></span>
+                <div class="card-header py-0 delete-icon-container">
+                    <span class="text-muted mt-2">@comment.TimeStamp</span>
+                    <span class="float-right">
+                        <button id="deleteButton" data-comment-id="@comment.Id" class="js-delete m-0 btn btn-link">
+                            <img src="~/lib/images/delete-bin-32.png" class="delete-comment-icon" />
+                        </button>
+                    </span>
                 </div>
                 <div class="card-body">
                     <b class="card-title">@comment.SubmittedBy</b>
@@ -131,16 +133,15 @@
                 }
             });
 
-            $("#deleteButton").on("click", function () {
-                var button = this;
+            $("#comments").on("click", ".js-delete", function () {
+                var button = $(this);
                 bootbox.confirm("Are you sure?", function (result) {
                     if (result) {
                         $.ajax({
                             url: "/api/comments/" + button.attr("data-comment-id"),
-                            method: "DELETE",
-
+                            method: "DELETE"
                         }).done(function () {
-                            bootbox.alert("Comment Deleted");
+
                         }).fail(function () {
                             bootbox.alert("Comment Deletion Failed");
                         });
