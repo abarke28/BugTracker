@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace BugTracker
 {
@@ -14,23 +15,37 @@ namespace BugTracker
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            var logger = host.Services.GetRequiredService<ILogger<Program>>();
-            logger.LogInformation("Application has started");
-            host.Run();
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Application Starting Up");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception)
+            {
+                Log.Fatal("Application Failed to Start");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging((context, logging) => {
-                    logging.ClearProviders();
-                    logging.AddConfiguration(context.Configuration.GetSection("Logging"));
-                    logging.AddDebug();
-                    logging.AddConsole();
-                })
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+        }
     }
 }
