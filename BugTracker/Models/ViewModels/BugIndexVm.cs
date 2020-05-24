@@ -7,5 +7,7 @@ namespace BugTracker.Models.ViewModels
 {
     public class BugIndexVm
     {
+        public IList<Bug> Bugs { get; set; }
+        public IList<Project> Projects { get; set; }
     }
 }
