@@ -30,6 +30,22 @@ namespace BugTracker.Controllers
             _logger = logger;
         }
 
+        [HttpGet("bugs")]
+        public async Task<IActionResult> Index()
+        {
+            var vm = new BugIndexVm();
+
+            var http = _clientFactory.CreateClient("bugs");
+            var apiResponse = await http.GetStringAsync(String.Empty);
+            vm.Bugs = JsonConvert.DeserializeObject<List<Bug>>(apiResponse);
+
+            http = _clientFactory.CreateClient("projects");
+            apiResponse = await http.GetStringAsync(String.Empty);
+            vm.Projects = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
+
+            return View("Index", vm);
+        }
+
         [HttpGet("projects/detail/{projectId}/{id}")]   
         public async Task<IActionResult> Detail(int projectId, int id)
         {
