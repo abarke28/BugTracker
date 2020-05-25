@@ -179,3 +179,7 @@ span {
     justify-content: center;
     align-content: center;
 }
+
+.login-provider-icon {
+    max-width: 30px;
+}
