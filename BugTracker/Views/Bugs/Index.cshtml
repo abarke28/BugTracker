@@ -6,7 +6,7 @@
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-    <li class="breadcrumb-item active"><a asp-controller="Bugs" asp-action="Index">Issues</a></li>
+    <li class="breadcrumb-item active">Issues</li>
 </ol>
 
 <h3>Open Issues</h3>
@@ -14,13 +14,13 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Project</th>
-            <th>Title</th>
-            <th class="col-width-40">Description</th>
-            <th>Status</th>
-            <th>Submitted</th>
-            <th></th>
+            <th class="col-width-5">Id</th>
+            <th class="col-width-10">Project</th>
+            <th class="col-width-20">Title</th>
+            <th class="col-width-35">Description</th>
+            <th class="col-width-10">Status</th>
+            <th class="col-width-10">Submitted</th>
+            <th class="col-width-10"></th>
         </tr>
     </thead>
     <tbody>
@@ -36,7 +36,7 @@
                 <td>
                     @bug.Title
                 </td>
-                <td class="col-width-40">
+                <td>
                     @bug.Description
                 </td>
                 <td>
