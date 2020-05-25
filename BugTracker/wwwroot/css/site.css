@@ -163,3 +163,19 @@ span {
     display: inline-flex;
     align-items: center;
 }
+
+.center-x {
+    display: flex;
+    justify-content: center;
+}
+
+.center-y {
+    display: flex;
+    align-content:center;
+}
+
+.center-xy {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
