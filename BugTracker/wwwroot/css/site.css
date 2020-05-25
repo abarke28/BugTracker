@@ -114,8 +114,16 @@ body {
     width: 20%;
 }
 
+.col-width-15 {
+    width: 15%;
+}
+
 .col-width-10 {
     width: 10%;
+}
+
+.col-width-5 {
+    width: 5%;
 }
 
 .form-control:focus {
