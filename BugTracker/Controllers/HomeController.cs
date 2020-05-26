@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BugTracker.Models;
+using BugTracker.Models.ViewModels;
 
 namespace BugTracker.Controllers
 {
@@ -21,7 +22,9 @@ namespace BugTracker.Controllers
         public IActionResult Index()
         {
             _logger.Log(LogLevel.Information, "Home: Index entered");
-            return View();
+
+            var vm = new HomeIndexVm();
+            return View(vm);
         }
 
         public IActionResult Privacy()
