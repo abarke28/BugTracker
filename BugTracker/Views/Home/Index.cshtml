@@ -7,19 +7,37 @@
     <h1 class="display-4 m-3">Dashboard</h1>
     <div class="container">
         <div class="row">
-            <div class="col col-4">
-                <div class="jumbotron">
-                    <p class="text-dark">TO DO</p>
+            <div class="col col-3">
+                <div class="jumbotron p-0">
+                    <strong class="text-dark my-2">TO DO</strong>
                 </div>
             </div>
-            <div class="col col-4">
-                <div class="jumbotron">
-                    <p class="text-dark">ASSIGNED</p>
+            <div class="col col-3">
+                <div class="jumbotron p-0">
+                    <strong class="text-dark my-2">NEW</strong>
+                    @{
+                        var cards = Model.Bugs.OrderByDescending(b => b.DateSubmitted).Take(Model.CardCount);
+                        foreach(var card in cards)
+                        {
+                            <div class="card mx-1">
+                                <div class="card-body">
+                                    <h4 class="card-title">Project</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted">@card.Title</h6>
+                                    <p class="card-text">@card.Description</p>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
-            <div class="col col-4">
-                <div class="jumbotron">
-                    <p class="text-dark">COMPLETED</p>
+            <div class="col col-3">
+                <div class="jumbotron p-0">
+                    <strong class="text-dark my-2">ASSIGNED</strong>
+                </div>
+            </div>
+            <div class="col col-3">
+                <div class="jumbotron p-0">
+                    <strong class="text-dark my-2">COMPLETED</strong>
                 </div>
             </div>
         </div>

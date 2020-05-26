@@ -9,5 +9,6 @@ namespace BugTracker.Models.ViewModels
     {
         public IList<Bug> Bugs { get; set; }
         public IList<Project> Projects { get; set; }
+        public int CardCount { get; set; }
     }
 }
