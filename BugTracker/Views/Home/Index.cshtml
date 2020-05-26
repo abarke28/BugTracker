@@ -4,26 +4,22 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4 m-3">Dashboard</h1>
+    <h1 class="display-4 m-3">Board</h1>
     <div class="container">
         <div class="row">
             <div class="col col-3">
-                <div class="jumbotron p-0">
-                    <strong class="text-dark my-2">TO DO</strong>
-                </div>
-            </div>
-            <div class="col col-3">
-                <div class="jumbotron p-0">
-                    <strong class="text-dark my-2">NEW</strong>
+                <div class="jumbotron p-0 pb-1">
+                    <div class="py-3">
+                        <strong class="text-dark">TO DO</strong>
+                    </div>
                     @{
                         var cards = Model.Bugs.OrderByDescending(b => b.DateSubmitted).Take(Model.CardCount);
                         foreach(var card in cards)
                         {
-                            <div class="card mx-1">
-                                <div class="card-body">
-                                    <h4 class="card-title">Project</h4>
-                                    <h6 class="card-subtitle mb-2 text-muted">@card.Title</h6>
-                                    <p class="card-text">@card.Description</p>
+                            <div class="card mx-2 mb-2">
+                                <div class="card-body p-1">
+                                    <p class="card-text p-1">@card.Title</p>
+                                    <div class="badge badge-info p-1">Project</div>
                                 </div>
                             </div>
                         }
@@ -33,6 +29,11 @@
             <div class="col col-3">
                 <div class="jumbotron p-0">
                     <strong class="text-dark my-2">ASSIGNED</strong>
+                </div>
+            </div>
+            <div class="col col-3">
+                <div class="jumbotron p-0">
+                    <strong class="text-dark my-2">COMPLETED</strong>
                 </div>
             </div>
             <div class="col col-3">
