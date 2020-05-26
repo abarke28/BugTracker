@@ -7,23 +7,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BugTracker.Models;
 using BugTracker.Models.ViewModels;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace BugTracker.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IHttpClientFactory clientFactory, ILogger<HomeController> logger)
         {
+            _clientFactory = clientFactory;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             _logger.Log(LogLevel.Information, "Home: Index entered");
 
             var vm = new HomeIndexVm();
+
+            var http = _clientFactory.CreateClient("Bugs");
+            var apiResponse = await http.GetStringAsync(String.Empty);
+            vm.Bugs = JsonConvert.DeserializeObject<List<Bug>>(apiResponse);
+
+            http = _clientFactory.CreateClient("Projects");
+            apiResponse = await http.GetStringAsync(String.Empty);
+            vm.Projects = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
+            http.Dispose();
+
             return View(vm);
         }
 
