@@ -10,9 +10,11 @@ using BugTracker.Models.ViewModels;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
