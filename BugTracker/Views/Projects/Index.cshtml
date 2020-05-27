@@ -15,7 +15,7 @@
 <p>
     <a asp-controller="Projects" asp-action="New" class="btn btn-primary m-3">Add New</a>
 </p>
-<table class="table">
+<table class="table" id="projectsTable">
     <thead>
         <tr>
             <th>
@@ -63,3 +63,14 @@
 }
     </tbody>
 </table>
+
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+        $("#projectsTable").DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "pageLength": 25
+        });
+    });
+</script>
+} 
