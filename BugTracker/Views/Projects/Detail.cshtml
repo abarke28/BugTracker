@@ -11,7 +11,7 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
     <li class="breadcrumb-item"><a asp-controller="Projects" asp-action="Index">Projects</a></li>
-    <li class="breadcrumb-item active">@Model.Title</li> 
+    <li class="breadcrumb-item active">@Model.Title</li>
 </ol>
 
 <h3>@Model.Title</h3>
@@ -45,12 +45,12 @@
     </div>
 </div>
 
-<a asp-controller="Bugs" asp-action="New" 
-   asp-route-projectId="@Model.Id" 
-   asp-route-projectName="@Model.Title" 
+<a asp-controller="Bugs" asp-action="New"
+   asp-route-projectId="@Model.Id"
+   asp-route-projectName="@Model.Title"
    class="btn btn-primary m-3">Add New</a>
 
-<table class="table">
+<table class="table" id="issueTable">
     <thead>
         <tr>
             <th class="col-width-5">Id</th>
@@ -81,7 +81,7 @@
                     @bug.DateSubmitted.Date.ToShortDateString()
                 </td>
                 <td>
-                    <a asp-controller="Bugs" asp-action="Detail" asp-route-projectId="@Model.Id" asp-route-id="@bug.Id" >Details</a>
+                    <a asp-controller="Bugs" asp-action="Detail" asp-route-projectId="@Model.Id" asp-route-id="@bug.Id">Details</a>
                 </td>
             </tr>
         }
@@ -89,10 +89,14 @@
     </tbody>
 </table>
 
-@*@section Scripts{ 
-<script>
-    $(Document).ready(function () {
-
-    });
-</script>
-}*@ 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#issueTable").DataTable({
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "pageLength": 25,
+                "info": false
+            });
+        });
+    </script>
+} 
