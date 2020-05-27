@@ -18,7 +18,7 @@
                         {
                             <div class="card mx-2 mb-2">
                                 <div class="card-body p-1">
-                                    <p class="mb-0 text-muted my-1">Project</p>
+                                    <p class="mb-0 text-muted my-1">@Model.Projects.FirstOrDefault(p=>p.Id==card.ProjectId).Title</p>
                                     <p class="card-text p-1">@card.Title</p>
                                     <div>
                                         <partial name="_BugStatus" model="@card.Status" />
