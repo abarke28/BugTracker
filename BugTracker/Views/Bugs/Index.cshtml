@@ -11,7 +11,7 @@
 
 <h3>Issues</h3>
 
-<table class="table">
+<table class="table" id="bugTable">
     <thead>
         <tr>
             <th class="col-width-5">Id</th>
@@ -54,3 +54,10 @@
     </tbody>
 </table>
 
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+        $("#bugTable").DataTable();
+    });
+</script>
+}
