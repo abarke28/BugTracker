@@ -8,6 +8,7 @@ namespace BugTracker.Models.ViewModels
     public class HomeIndexVm
     {
         public IList<Bug> Bugs { get; set; }
+        public IList<DashboardStack> Stacks { get; set; }
         public IList<Project> Projects { get; set; }
         public int CardCount { get; set; }
     }
