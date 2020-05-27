@@ -10,10 +10,10 @@
     <li class="breadcrumb-item active">Projects</li>
 </ol>
 
-<h3>Projects</h3>
+<h3 class="mb-0">Projects</h3>
 
 <p>
-    <a asp-controller="Projects" asp-action="New" class="btn btn-primary m-3">Add New</a>
+    <a asp-controller="Projects" asp-action="New" class="btn btn-primary m-3 mb-0">Add New</a>
 </p>
 <table class="table" id="projectsTable">
     <thead>
@@ -69,7 +69,10 @@
     $(document).ready(function () {
         $("#projectsTable").DataTable({
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            "pageLength": 25
+            "pageLength": 25,
+            "info": false,
+            "paging": false,
+            "searching": false
         });
     });
 </script>
