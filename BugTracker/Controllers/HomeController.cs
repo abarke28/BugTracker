@@ -40,33 +40,23 @@ namespace BugTracker.Controllers
             var apiResponse = await http.GetStringAsync(String.Empty);
             var BugsList = JsonConvert.DeserializeObject<List<Bug>>(apiResponse);
 
-            vm.Stacks.Add(new DashboardStack
+            var coloumns = new Dictionary<BugStatus, string>
             {
-                AssociatedStatus = BugStatus.Open,
-                Title = "NEW",
-                Bugs = BugsList.Where(b => b.Status.HasFlag(BugStatus.Open)).OrderByDescending(b => b.DateSubmitted).Take(vm.CardCount).ToList()
-            });
+                { BugStatus.Open, "New" },
+                { BugStatus.Assigned, BugStatus.Assigned.ToString() },
+                { BugStatus.Closed, BugStatus.Closed.ToString() },
+                { BugStatus.Resolved, BugStatus.Resolved.ToString() }
+            };
 
-            vm.Stacks.Add(new DashboardStack
+            foreach (var pair in coloumns)
             {
-                AssociatedStatus = BugStatus.Assigned,
-                Title = "ASSIGNED",
-                Bugs = BugsList.Where(b => b.Status.HasFlag(BugStatus.Assigned)).OrderByDescending(b => b.DateSubmitted).Take(vm.CardCount).ToList()
-            });
-
-            vm.Stacks.Add(new DashboardStack
-            {
-                AssociatedStatus = BugStatus.Closed,
-                Title = "CLOSED",
-                Bugs = BugsList.Where(b => b.Status.HasFlag(BugStatus.Closed)).OrderByDescending(b => b.DateSubmitted).Take(vm.CardCount).ToList()
-            });
-
-            vm.Stacks.Add(new DashboardStack
-            {
-                AssociatedStatus = BugStatus.Resolved,
-                Title = "RESOLVED",
-                Bugs = BugsList.Where(b => b.Status.HasFlag(BugStatus.Resolved)).OrderByDescending(b => b.DateSubmitted).Take(vm.CardCount).ToList()
-            });
+                vm.Stacks.Add(new DashboardStack
+                {
+                    AssociatedStatus = pair.Key,
+                    Title = pair.Value,
+                    Bugs = BugsList.Where(b => b.Status.HasFlag(pair.Key)).OrderByDescending(b => b.DateSubmitted).Take(vm.CardCount).ToList()
+                });
+            }
 
             http = _clientFactory.CreateClient("projects");
             apiResponse = await http.GetStringAsync(String.Empty);
