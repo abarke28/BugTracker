@@ -183,3 +183,16 @@ span {
 .login-provider-icon {
     max-width: 30px;
 }
+
+.text-left {
+    display: flex;
+    justify-content: left;
+}
+
+.card-height{
+    height: 100px;
+}
+
+.height-inherit{
+    height: inherit;
+}
