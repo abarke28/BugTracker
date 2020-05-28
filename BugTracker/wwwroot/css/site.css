@@ -196,3 +196,11 @@ span {
 .height-inherit{
     height: inherit;
 }
+
+.pagination > li > a, .pagination > li > span {
+    background-color: #2C3E50!important;
+}
+
+.pagination > li.active > a, .pagination > li.active > span {
+    background-color: #2C3E50!important;
+}
