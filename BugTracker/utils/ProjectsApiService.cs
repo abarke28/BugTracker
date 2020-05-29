@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BugTracker.Models;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,12 @@ namespace BugTracker.utils
             client.BaseAddress = new Uri(config.GetValue<string>("Endpoints:projects"));
 
             Client = client;
+        }
+
+        public async Task<IList<Project>> GetProjectsAsync()
+        {
+            var apiResponse = await Client.GetStringAsync(String.Empty).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<List<Project>>(apiResponse);
         }
     }
 }
