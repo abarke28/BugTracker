@@ -11,21 +11,27 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using BugTracker.utils;
 
 namespace BugTracker.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly ProjectsApiService _projectsApi;
+        private readonly BugsApiService _bugsApi;
 
-        public HomeController(IHttpClientFactory clientFactory, ILogger<HomeController> logger, IConfiguration config)
+        public HomeController(ILogger<HomeController> logger, 
+            IConfiguration config,
+            ProjectsApiService projectsApiService,
+            BugsApiService bugsApiService)
         {
-            _clientFactory = clientFactory;
             _logger = logger;
             _configuration = config;
+            _projectsApi = projectsApiService;
+            _bugsApi = bugsApiService;
         }
 
         public async Task<IActionResult> Index()
@@ -35,12 +41,9 @@ namespace BugTracker.Controllers
             var vm = new HomeIndexVm
             {
                 CardCount = _configuration.GetValue<int>("DashboardCardCount"),
-                Stacks = new List<DashboardStack>()
+                Stacks = new List<DashboardStack>(),
+                Projects = await _projectsApi.GetProjectsAsync()
             };
-
-            var http = _clientFactory.CreateClient("bugs");
-            var apiResponse = await http.GetStringAsync(String.Empty);
-            var BugsList = JsonConvert.DeserializeObject<List<Bug>>(apiResponse);
 
             var coloumns = new Dictionary<BugStatus, string>
             {
@@ -49,6 +52,8 @@ namespace BugTracker.Controllers
                 { BugStatus.Closed, BugStatus.Closed.ToString() },
                 { BugStatus.Resolved, BugStatus.Resolved.ToString() }
             };
+
+            var BugsList = await _bugsApi.GetBugsAsync();
 
             foreach (var pair in coloumns)
             {
@@ -59,11 +64,6 @@ namespace BugTracker.Controllers
                     Bugs = BugsList.Where(b => b.Status.HasFlag(pair.Key)).OrderByDescending(b => b.DateSubmitted).Take(vm.CardCount).ToList()
                 });
             }
-
-            http = _clientFactory.CreateClient("projects");
-            apiResponse = await http.GetStringAsync(String.Empty);
-            vm.Projects = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
-            http.Dispose();
 
             return View(vm);
         }
