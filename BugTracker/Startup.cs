@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using Serilog;
+using BugTracker.utils;
 
 namespace BugTracker
 {
@@ -61,6 +62,9 @@ namespace BugTracker
             {
                 c.BaseAddress = new Uri(Controllers.Api.CommentsController.Endpoint);
             });
+            services.AddHttpClient<BugsApiService>();
+            services.AddHttpClient<CommentsApiService>();
+            services.AddHttpClient<ProjectsApiService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
