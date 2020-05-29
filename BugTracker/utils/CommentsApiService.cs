@@ -14,7 +14,7 @@ namespace BugTracker.utils
 
         public CommentsApiService(HttpClient client, IConfiguration config)
         {
-            client.BaseAddress = new Uri(config.GetSection("Endpoints").GetValue<string>("comments"));
+            client.BaseAddress = new Uri(config.GetValue<string>("Endpoints:comments"));
 
             Client = client;
         }

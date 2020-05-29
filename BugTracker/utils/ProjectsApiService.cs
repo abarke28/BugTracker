@@ -13,7 +13,7 @@ namespace BugTracker.utils
 
         public ProjectsApiService(HttpClient client, IConfiguration config)
         {
-            client.BaseAddress = new Uri(config.GetSection("Endpoints").GetValue<string>("projects"));
+            client.BaseAddress = new Uri(config.GetValue<string>("Endpoints:projects"));
 
             Client = client;
         }

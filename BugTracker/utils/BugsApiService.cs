@@ -14,7 +14,7 @@ namespace BugTracker.utils
 
         public BugsApiService(HttpClient client, IConfiguration config)
         {
-            client.BaseAddress = new Uri(config.GetSection("Endpoints").GetValue<string>("bugs"));
+            client.BaseAddress = new Uri(config.GetValue<string>("Endpoints:bugs"));
 
             Client = client;
         }
