@@ -23,10 +23,7 @@ namespace BugTracker.Controllers
         private readonly ProjectsApiService _projectsApi;
         private readonly BugsApiService _bugsApi;
 
-        public HomeController(ILogger<HomeController> logger, 
-            IConfiguration config,
-            ProjectsApiService projectsApiService,
-            BugsApiService bugsApiService)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ProjectsApiService projectsApiService, BugsApiService bugsApiService)
         {
             _logger = logger;
             _configuration = config;

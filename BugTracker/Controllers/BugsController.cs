@@ -23,25 +23,25 @@ namespace BugTracker.Controllers
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<BugsController> _logger;
+        private readonly BugsApiService _bugsApi;
+        private readonly ProjectsApiService _projectsApi;
 
-        public BugsController(IHttpClientFactory clientFactory, ILogger<BugsController> logger)
+        public BugsController(IHttpClientFactory clientFactory, ILogger<BugsController> logger, BugsApiService bugsApiService, ProjectsApiService projectsApiService)
         {
             _clientFactory = clientFactory;
             _logger = logger;
+            _bugsApi = bugsApiService;
+            _projectsApi = projectsApiService;
         }
 
         [HttpGet("bugs")]
         public async Task<IActionResult> Index()
         {
-            var vm = new BugIndexVm();
-
-            var http = _clientFactory.CreateClient("bugs");
-            var apiResponse = await http.GetStringAsync(String.Empty);
-            vm.Bugs = JsonConvert.DeserializeObject<List<Bug>>(apiResponse);
-
-            http = _clientFactory.CreateClient("projects");
-            apiResponse = await http.GetStringAsync(String.Empty);
-            vm.Projects = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
+            var vm = new BugIndexVm
+            {
+                Bugs = await _bugsApi.GetBugsAsync(),
+                Projects = await _projectsApi.GetProjectsAsync()
+            };
 
             return View("Index", vm);
         }
