@@ -25,5 +25,11 @@ namespace BugTracker.utils
             var apiResponse = await Client.GetStringAsync(String.Empty).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<List<Project>>(apiResponse);
         }
+
+        public async Task<Project> GetProjectAsync(int id)
+        {
+            var apiResponse = await Client.GetStringAsync(id.ToString()).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<Project>(apiResponse);
+        }
     }
 }

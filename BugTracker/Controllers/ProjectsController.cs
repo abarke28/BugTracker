@@ -46,9 +46,7 @@ namespace BugTracker.Controllers
             //
             // Returns Project overview including list of Bugs, consumes internal API
 
-            var http = _clientFactory.CreateClient("projects");
-            var apiResponse = await http.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
-            var vm = JsonConvert.DeserializeObject<Project>(apiResponse);
+            var vm = await _projectsApi.GetProjectAsync(id);
 
             return View(vm);
         }
