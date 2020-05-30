@@ -8,6 +8,7 @@ using BugTracker.Data;
 using BugTracker.Models;
 using BugTracker.Models.Dtos;
 using BugTracker.Models.ViewModels;
+using BugTracker.utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -18,10 +19,12 @@ namespace BugTracker.Controllers
     public class ProjectsController : Controller
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly ProjectsApiService _projectsApi;
 
-        public ProjectsController(IHttpClientFactory clientFactory)
+        public ProjectsController(IHttpClientFactory clientFactory, ProjectsApiService projectsApiService)
         {
             _clientFactory = clientFactory;
+            _projectsApi = projectsApiService;
         }
 
         [HttpGet("projects")]
@@ -31,9 +34,7 @@ namespace BugTracker.Controllers
             //
             // Returns list of all projects, consumes internal API
 
-            var http = _clientFactory.CreateClient("projects");
-            var apiResponse = await http.GetAsync(String.Empty).Result.Content.ReadAsStringAsync();
-            var vm = JsonConvert.DeserializeObject<List<Project>>(apiResponse);
+            var vm = await _projectsApi.GetProjectsAsync();
 
             return View(vm);
         }
