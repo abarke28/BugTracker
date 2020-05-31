@@ -37,6 +37,10 @@ namespace BugTracker.Controllers
         [HttpGet("bugs")]
         public async Task<IActionResult> Index()
         {
+            // Summary
+            //
+            // Fetch all bugs and projects from Endpoints, render view. Projects are used for display purposes
+
             var vm = new BugIndexVm
             {
                 Bugs = await _bugsApi.GetBugsAsync(),
@@ -49,20 +53,19 @@ namespace BugTracker.Controllers
         [HttpGet("projects/detail/{projectId}/{id}")]   
         public async Task<IActionResult> Detail(int projectId, int id)
         {
+            // Summary
+            //
+            // Fetch bug, and project details from Endpoints and render associated view
+
             var vm = new BugDetailVm 
             { 
-                Bug = new Bug(),
+                Bug = await _bugsApi.GetBugAsync(id).ConfigureAwait(false),
                 ProjectId = projectId,
                 UserName = User.FindFirst(ClaimTypes.Name).Value.Split("@")?[0] ?? "guest"
             };
 
-            var httpClient = _clientFactory.CreateClient("bugs");
-            var apiResponse = await httpClient.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
-            vm.Bug = JsonConvert.DeserializeObject<Bug>(apiResponse);
-
-            httpClient = _clientFactory.CreateClient("projects");
-            apiResponse = await httpClient.GetAsync(projectId.ToString()).Result.Content.ReadAsStringAsync();
-            vm.ProjectName = JsonConvert.DeserializeObject<Project>(apiResponse).Title;
+            var project = await _projectsApi.GetProjectAsync(projectId).ConfigureAwait(false);
+            vm.ProjectName = project.Title;
 
             return View(vm);
         }
@@ -87,8 +90,7 @@ namespace BugTracker.Controllers
 
             if (!ModelState.IsValid) return View("New", vm);
 
-            var http = _clientFactory.CreateClient("bugs");
-            var result = await http.PostAsync(String.Empty, vm.Bug);
+            var result = await _bugsApi.PostBugAsync(vm.Bug);
             var bugStr = await result.Content.ReadAsStringAsync();
             var bugId = JsonConvert.DeserializeObject<Bug>(bugStr).Id;
 
@@ -100,17 +102,20 @@ namespace BugTracker.Controllers
         [HttpGet("bugs/edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var vm = new EditBugVm();
+            // Summary
+            //
+            // Fetch associated Bug & Project Name, render view with VM
 
-            var http = _clientFactory.CreateClient("bugs");
-            var apiResponse = await http.GetAsync(id.ToString()).Result.Content.ReadAsStringAsync();
-            vm.Bug = JsonConvert.DeserializeObject<Bug>(apiResponse);
+            var vm = new EditBugVm
+            {
+                Bug = await _bugsApi.GetBugAsync(id).ConfigureAwait(false)
+            };
+
             vm.Assigned = ((BugStatus.Assigned & vm.Bug.Status) == BugStatus.Assigned);
             vm.Reopened = ((BugStatus.Reopened & vm.Bug.Status) == BugStatus.Reopened);
 
-            http = _clientFactory.CreateClient("projects");
-            apiResponse = await http.GetAsync(vm.Bug.ProjectId.ToString()).Result.Content.ReadAsStringAsync();
-            vm.ProjectName = JsonConvert.DeserializeObject<Project>(apiResponse).Title;
+            var project = await _projectsApi.GetProjectAsync(vm.Bug.ProjectId).ConfigureAwait(false);
+            vm.ProjectName = project.Title;
 
             return View("EditBugForm", vm);
         }
