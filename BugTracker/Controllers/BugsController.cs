@@ -21,14 +21,12 @@ namespace BugTracker.Controllers
     [Authorize]
     public class BugsController : Controller
     {
-        private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<BugsController> _logger;
         private readonly BugsApiService _bugsApi;
         private readonly ProjectsApiService _projectsApi;
 
-        public BugsController(IHttpClientFactory clientFactory, ILogger<BugsController> logger, BugsApiService bugsApiService, ProjectsApiService projectsApiService)
+        public BugsController(ILogger<BugsController> logger, BugsApiService bugsApiService, ProjectsApiService projectsApiService)
         {
-            _clientFactory = clientFactory;
             _logger = logger;
             _bugsApi = bugsApiService;
             _projectsApi = projectsApiService;
@@ -128,8 +126,7 @@ namespace BugTracker.Controllers
             if (vm.Assigned) bug.Status |= BugStatus.Assigned;
             if (vm.Reopened) bug.Status |= BugStatus.Reopened;
 
-            var http = _clientFactory.CreateClient("bugs");
-            var apiResponse = await http.PutAsync(bug.Id.ToString(), bug);
+            var apiResponse = await _bugsApi.PutBugAsync(bug.Id, bug).ConfigureAwait(false);
 
             if (!apiResponse.IsSuccessStatusCode)
             {
@@ -137,8 +134,7 @@ namespace BugTracker.Controllers
             }
 
             // Fetch associated comments from API
-            var apiResponseStr = await http.GetAsync(bug.Id.ToString()).Result.Content.ReadAsStringAsync();
-            bug = JsonConvert.DeserializeObject<Bug>(apiResponseStr);
+            bug = await  _bugsApi.GetBugAsync(bug.Id).ConfigureAwait(false);
 
             var detailVm = new BugDetailVm
             {

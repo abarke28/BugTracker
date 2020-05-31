@@ -53,5 +53,14 @@ namespace BugTracker.utils
 
             return await Client.PostAsync(String.Empty, postContent);
         }
+
+        public async Task<HttpResponseMessage> PutBugAsync(int id, Bug bug)
+        {
+            // Summary
+            //
+            // Update bug to Endpoint, return response.
+
+            return await Client.PutAsync(id.ToString(), bug).ConfigureAwait(false);
+        }
     }
 }
