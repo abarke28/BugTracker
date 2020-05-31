@@ -1,10 +1,12 @@
 ﻿using BugTracker.Models;
+using BugTracker.Models.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BugTracker.utils
@@ -30,6 +32,14 @@ namespace BugTracker.utils
         {
             var apiResponse = await Client.GetStringAsync(id.ToString()).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<Project>(apiResponse);
+        }
+
+        public async Task<HttpResponseMessage> PostProjectAsync(object project)
+        {
+            var json = JsonConvert.SerializeObject(project);
+            var postContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            return await Client.PostAsync(String.Empty, postContent).ConfigureAwait(false);
         }
     }
 }

@@ -18,12 +18,10 @@ namespace BugTracker.Controllers
     [Authorize]
     public class ProjectsController : Controller
     {
-        private readonly IHttpClientFactory _clientFactory;
         private readonly ProjectsApiService _projectsApi;
 
-        public ProjectsController(IHttpClientFactory clientFactory, ProjectsApiService projectsApiService)
+        public ProjectsController(ProjectsApiService projectsApiService)
         {
-            _clientFactory = clientFactory;
             _projectsApi = projectsApiService;
         }
 
@@ -72,11 +70,7 @@ namespace BugTracker.Controllers
 
             if (!ModelState.IsValid) return View("New", vm);
 
-            var projectJson = JsonConvert.SerializeObject(vm.Project);
-            var postContent = new StringContent(projectJson, Encoding.UTF8, "application/json");
-
-            var http = _clientFactory.CreateClient("projects");
-            var result = await http.PostAsync(String.Empty, postContent);
+            var result = await _projectsApi.PostProjectAsync(vm.Project);
 
             return result.IsSuccessStatusCode ? RedirectToAction("Index") : RedirectToAction("New", vm);
         }
