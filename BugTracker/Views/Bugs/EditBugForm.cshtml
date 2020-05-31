@@ -177,6 +177,12 @@
 
                 }
             });
+
+            $("#Assigned").change(function () {
+                if (!$("#Assigned").prop("isChecked")) {
+                    $("#assignedTo").val("");
+                }
+            });
         });
     </script>
 }
