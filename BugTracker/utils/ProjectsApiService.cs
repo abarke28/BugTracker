@@ -24,18 +24,30 @@ namespace BugTracker.utils
 
         public async Task<IList<Project>> GetProjectsAsync()
         {
+            // Summary
+            //
+            // Get all projects from Endpoint
+
             var apiResponse = await Client.GetStringAsync(String.Empty).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<List<Project>>(apiResponse);
         }
 
         public async Task<Project> GetProjectAsync(int id)
         {
+            // Summary
+            //
+            // Get project by id from Endpoint
+
             var apiResponse = await Client.GetStringAsync(id.ToString()).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<Project>(apiResponse);
         }
 
         public async Task<HttpResponseMessage> PostProjectAsync(object project)
         {
+            // Summary
+            //
+            // Post project to Endpoint, return HttpResponse
+            
             var json = JsonConvert.SerializeObject(project);
             var postContent = new StringContent(json, Encoding.UTF8, "application/json");
 
