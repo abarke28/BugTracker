@@ -118,8 +118,13 @@ namespace BugTracker.Controllers
             return View("EditBugForm", vm);
         }
 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Save(EditBugVm vm)
         {
+            // Summary
+            //
+            // Validate model, then call API to update bug, then render detail view
+
             if (!ModelState.IsValid) return View("EditBugForm", vm);
 
             var bug = vm.Bug;
