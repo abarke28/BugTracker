@@ -110,6 +110,8 @@ namespace BugTracker.Controllers
                 _logger.LogInformation($"Failed to update Project {project.Id}");
             }
 
+            project = await _projectsApi.GetProjectAsync(project.Id);
+
             return View("Detail", project);
         }
     }
