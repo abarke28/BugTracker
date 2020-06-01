@@ -50,18 +50,6 @@ namespace BugTracker
                     googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                 });
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
-            services.AddHttpClient("projects", c =>
-            {
-                c.BaseAddress = new Uri(Controllers.Api.ProjectsController.Endpoint);
-            });
-            services.AddHttpClient("bugs", c =>
-            {
-                c.BaseAddress = new Uri(Controllers.Api.BugsController.Endpoint);
-            });
-            services.AddHttpClient("comments", c =>
-            {
-                c.BaseAddress = new Uri(Controllers.Api.CommentsController.Endpoint);
-            });
             services.AddHttpClient<BugsApiService>();
             services.AddHttpClient<CommentsApiService>();
             services.AddHttpClient<ProjectsApiService>();
