@@ -11,6 +11,7 @@ using BugTracker.Models.ViewModels;
 using BugTracker.utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace BugTracker.Controllers
@@ -18,10 +19,12 @@ namespace BugTracker.Controllers
     [Authorize]
     public class ProjectsController : Controller
     {
+        private readonly ILogger<ProjectsController> _logger;
         private readonly ProjectsApiService _projectsApi;
 
-        public ProjectsController(ProjectsApiService projectsApiService)
+        public ProjectsController(ILogger<ProjectsController> logger, ProjectsApiService projectsApiService)
         {
+            _logger = logger;
             _projectsApi = projectsApiService;
         }
 
@@ -75,10 +78,39 @@ namespace BugTracker.Controllers
             return result.IsSuccessStatusCode ? RedirectToAction("Index") : RedirectToAction("New", vm);
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            // Summary
+            //
+            // Fetch associated project by Id and render view
+
+            var vm = new EditProjectVm
+            {
+                Project = await _projectsApi.GetProjectAsync(id).ConfigureAwait(false)
+            };
+
+            return View("EditProjectForm", vm);
+        }
+
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Save(EditProjectVm vm)
         {
-            return NoContent();
+            // Summary
+            //
+            // Validate form submission, call api, then return detail view
+
+            if (!ModelState.IsValid) return View("Edit", vm);
+
+            var project = vm.Project;
+
+            var apiResponse = await _projectsApi.PutProjectAsync(project.Id, project).ConfigureAwait(false);
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                _logger.LogInformation($"Failed to update Project {project.Id}");
+            }
+
+            return View("Detail", project);
         }
     }
 }

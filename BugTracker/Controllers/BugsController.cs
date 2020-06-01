@@ -120,6 +120,8 @@ namespace BugTracker.Controllers
 
         public async Task<IActionResult> Save(EditBugVm vm)
         {
+            if (!ModelState.IsValid) return View("EditBugForm", vm);
+
             var bug = vm.Bug;
 
             if (vm.Assigned) bug.Status |= BugStatus.Assigned;
@@ -146,4 +148,4 @@ namespace BugTracker.Controllers
             return View("Detail", detailVm);
         }
     }
-}
+}   
