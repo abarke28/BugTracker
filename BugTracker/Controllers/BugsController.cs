@@ -78,7 +78,7 @@ namespace BugTracker.Controllers
             return View("NewBugForm", vm);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Submit(NewBugVm vm)
         {
             // Summary
@@ -118,7 +118,6 @@ namespace BugTracker.Controllers
             return View("EditBugForm", vm);
         }
 
-        [HttpPost("bugs/save")]
         public async Task<IActionResult> Save(EditBugVm vm)
         {
             var bug = vm.Bug;

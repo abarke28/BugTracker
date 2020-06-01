@@ -74,5 +74,11 @@ namespace BugTracker.Controllers
 
             return result.IsSuccessStatusCode ? RedirectToAction("Index") : RedirectToAction("New", vm);
         }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Save(EditProjectVm vm)
+        {
+            return NoContent();
+        }
     }
 }
