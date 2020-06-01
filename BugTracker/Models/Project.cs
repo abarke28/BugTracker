@@ -12,7 +12,9 @@ namespace BugTracker.Models
 
         [Required]
         public string Title { get; set; }
-        
+
+        public string Repo { get; set; }
+
         public ICollection<Bug> Bugs { get; set; }
     }
 }
