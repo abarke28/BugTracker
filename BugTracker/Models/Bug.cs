@@ -19,6 +19,7 @@ namespace BugTracker.Models
         public string ResolutionDescription { get; set; }
         public string ResolutionCommit { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public int Severity { get; set; }
         public int ProjectId { get; set; }
     }
 }
