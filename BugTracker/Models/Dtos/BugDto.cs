@@ -16,7 +16,10 @@ namespace BugTracker.Models.Dtos
         
         [Required]
         public int ProjectId { get; set; }
-        
+
+        [Range(0,10,ErrorMessage = "Severity must be in range 0-10")]
+        public int Severity { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
     }
 }

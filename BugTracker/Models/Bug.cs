@@ -19,6 +19,8 @@ namespace BugTracker.Models
         public string ResolutionDescription { get; set; }
         public string ResolutionCommit { get; set; }
         public ICollection<Comment> Comments { get; set; }
+
+        [Range(0,10,ErrorMessage = "Severity must be integer from 0-10")]
         public int Severity { get; set; }
         public int ProjectId { get; set; }
     }

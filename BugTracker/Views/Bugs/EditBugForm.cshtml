@@ -31,6 +31,12 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="Bug.Severity"></label>
+            <input asp-for="Bug.Severity" class="form-control" />
+            <span asp-validation-for="Bug.Severity"></span>
+        </div>
+
+        <div class="form-group">
             <label asp-for="Bug.Status"></label>
             <select asp-for="Bug.Status" asp-items="Model.CoreStatuses" id="BugStatus" class="form-control"></select>
         </div>

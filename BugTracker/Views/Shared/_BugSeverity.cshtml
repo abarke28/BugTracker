@@ -1,0 +1,27 @@
+﻿@model int
+
+@{ 
+    switch (Model)
+    {
+        case 0:
+        case 1:
+        case 2:
+            <span class="badge badge-success">Severity @Model.ToString()</span>
+            break;
+        case 3:
+        case 4:
+        case 5:
+            <span class="badge badge-info">Severity @Model.ToString()</span>
+            break;
+        case 6:
+        case 7:
+        case 8:
+            <span class="badge badge-warning">Severity @Model.ToString()</span>
+            break;
+        case 9:
+        case 10:
+            <span class="badge badge-danger">Severity @Model.ToString()</span>
+            break;
+
+    }
+}

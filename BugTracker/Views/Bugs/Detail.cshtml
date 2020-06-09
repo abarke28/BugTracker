@@ -13,8 +13,9 @@
 
 <div class="card border-primary m-3">
     <div class="card-header">
-        <span>Bug #@Model.Bug.Id </span>
+        <span class="mr-3">Bug #@Model.Bug.Id </span>
         <span>@await Html.PartialAsync("_BugStatus", Model.Bug.Status) </span>
+        <span>@await Html.PartialAsync("_BugSeverity", Model.Bug.Severity) </span>
         <span class="float-right">
             <a asp-controller="Bugs" asp-action="Edit" asp-route-id="@Model.Bug.Id"><img src="~/lib/images/edit-24.png" class="edit-bug-icon" /></a>
         </span>
