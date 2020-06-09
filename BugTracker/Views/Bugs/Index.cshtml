@@ -20,7 +20,7 @@
             <th class="col-width-35">Description</th>
             <th class="col-width-10">Status</th>
             <th class="col-width-10">Submitted</th>
-            <th class="col-width-10"></th>
+            <th class="col-width-10">Severity</th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +34,7 @@
                     @Model.Projects.FirstOrDefault(p=>p.Id==bug.ProjectId)?.Title
                 </td>
                 <td>
-                    @bug.Title
+                    <a asp-controller="Bugs" asp-action="Detail" asp-route-projectId="@bug.ProjectId" asp-route-id="@bug.Id">@bug.Title</a>
                 </td>
                 <td>
                     @bug.Description
@@ -46,7 +46,7 @@
                     @bug.DateSubmitted.Date.ToShortDateString()
                 </td>
                 <td>
-                    <a asp-controller="Bugs" asp-action="Detail" asp-route-projectId="@bug.ProjectId" asp-route-id="@bug.Id">Details</a>
+                    <partial name="_BugSeverity" for="@bug.Severity"/>
                 </td>
             </tr>
         }

@@ -12,11 +12,21 @@ namespace BugTracker.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string Assignee { get; set; }
+
+        [Display(Name="Date Submitted")]
         public DateTime DateSubmitted { get; set; }
+
+        [Display(Name = "Date Targeted")]
         public DateTime DateTargeted { get; set; }
+
+        [Display(Name = "Date Resolved")]
         public DateTime DateResolved { get; set; }
         public BugStatus Status { get; set; }
+
+        [Display(Name = "Resolution Description")]
         public string ResolutionDescription { get; set; }
+
+        [Display(Name = "Resolution Commit")]
         public string ResolutionCommit { get; set; }
         public ICollection<Comment> Comments { get; set; }
 
