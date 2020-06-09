@@ -29,6 +29,8 @@ namespace BugTracker.Controllers
             _configuration = config;
             _projectsApi = projectsApiService;
             _bugsApi = bugsApiService;
+
+            _logger.LogInformation(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
         }
 
         public async Task<IActionResult> Index()

@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using Serilog;
 using BugTracker.utils;
+using Serilog.Core;
 
 namespace BugTracker
 {
