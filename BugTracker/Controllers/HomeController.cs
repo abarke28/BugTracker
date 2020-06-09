@@ -46,10 +46,10 @@ namespace BugTracker.Controllers
 
             var coloumns = new Dictionary<BugStatus, string>
             {
-                { BugStatus.Open, "New" },
-                { BugStatus.Assigned, BugStatus.Assigned.ToString() },
-                { BugStatus.Closed, BugStatus.Closed.ToString() },
-                { BugStatus.Resolved, BugStatus.Resolved.ToString() }
+                { BugStatus.Open, "Open" },
+                { BugStatus.Assigned, "In Progress" },
+                { BugStatus.Resolved, "Resolved" },
+                { BugStatus.Closed, "Closed" }
             };
 
             var BugsList = await _bugsApi.GetBugsAsync();
