@@ -11,7 +11,7 @@ Date.prototype.toShortDateString = function (){
     date.toISOString().split('T')[0];
 }
 
-const saveComment = function {
+const saveComment = function() {
     $("#saveButton").on("click", function () {
         var commentText = $("#newComment").val().trim();
         var count = commentText.length;
@@ -65,4 +65,3 @@ const saveComment = function {
         }
     }
 }
-
