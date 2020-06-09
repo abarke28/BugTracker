@@ -144,6 +144,15 @@ img {
     max-width: 100%;
 }
 
+nav img.logo {
+    background: rgba(255,255,255,0.5);
+    height: 35px;
+    border: 2px solid black;
+    padding: 3px 15px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
 .delete-comment-icon {
     height: 18px;
 }
