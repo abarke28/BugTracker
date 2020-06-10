@@ -29,6 +29,13 @@
                                 </div>
                             </div>
                         }
+
+                        @if (stack.Count > stack.Bugs.Count)
+                        {
+                            <div class="text-right">
+                                <a asp-controller="Bugs" asp-action="Index" class="btn btn-link">View All</a>
+                            </div>
+                        }
                     </div>
                 </div>
             }
