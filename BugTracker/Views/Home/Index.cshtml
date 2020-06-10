@@ -21,7 +21,7 @@
                                     <p class="mb-0 text-muted my-1 mb-0">@Model.Projects.FirstOrDefault(p=>p.Id==card.ProjectId).Title</p>
                                     <p class="card-text text-left mx-2 mb-1 p-1">@card.Title</p>
                                     <div>
-                                        <partial name="_BugStatus" model="@card.Status" />
+                                        <partial name="_BugSeverity" model="@card.Severity" />
                                     </div>
                                     <a asp-controller="Bugs" asp-action="Detail" asp-route-projectId="@card.ProjectId" asp-route-id="@card.Id" class="btn btn-link">View</a>
                                 </div>
