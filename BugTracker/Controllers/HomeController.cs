@@ -56,12 +56,17 @@ namespace BugTracker.Controllers
 
             foreach (var pair in coloumns)
             {
-                vm.Stacks.Add(new DashboardStack
+                var stack = new DashboardStack
                 {
                     AssociatedStatus = pair.Key,
-                    Title = pair.Value,
-                    Bugs = BugsList.Where(b => b.Status.HasFlag(pair.Key)).OrderByDescending(b => b.DateSubmitted).Take(vm.CardCount).ToList()
-                });
+                    Title = pair.Value
+                };
+
+                var bugs = BugsList.Where(b => b.Status.HasFlag(pair.Key)).OrderByDescending(b => b.DateSubmitted);
+                stack.Count = bugs.Count();
+                stack.Bugs = bugs.Take(vm.CardCount).ToList();
+
+                vm.Stacks.Add(stack);
             }
 
             return View(vm);

@@ -10,5 +10,6 @@ namespace BugTracker.Models
         public BugStatus AssociatedStatus { get; set; }
         public string Title { get; set; }
         public List<Bug> Bugs { get; set; }
+        public int Count { get; set; }
     }
 }
