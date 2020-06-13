@@ -62,7 +62,10 @@ namespace BugTracker.Controllers
                     Title = pair.Value
                 };
 
-                var bugs = BugsList.Where(b => b.Status.HasFlag(pair.Key)).OrderByDescending(b => b.DateSubmitted);
+                var bugs = pair.Key != BugStatus.Open 
+                    ? BugsList.Where(b => b.Status.HasFlag(pair.Key)).OrderByDescending(b => b.DateSubmitted) 
+                    : BugsList.Where(b=>b.Status.HasFlag(pair.Key)).OrderBy(b=>b.DateSubmitted);
+
                 stack.Count = bugs.Count();
                 stack.Bugs = bugs.Take(vm.CardCount).ToList();
 
