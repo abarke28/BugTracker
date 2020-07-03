@@ -1,6 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+</ol>
+
+<h2>@ViewData["Title"]</h2>
 
 <p>Poor Yorrick Issue Tracker does not use any non-essential cookies, and does not share any information with any third parties.</p>
